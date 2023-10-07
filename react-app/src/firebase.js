@@ -5,23 +5,21 @@ import { getStorage } from 'firebase/storage'
 import { getAuth } from 'firebase/auth'
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 require('dotenv').config()
-import FIREBASE_CONFIG from '/etc/secrets/FIREBASE_CONFIG'
 
 const firebaseConfig = {
-  apiKey: process.env.APIKEY,
-  authDomain: process.env.AUTHDOMAIN,
-  projectId: process.env.PROJECTID,
-  storageBucket: process.env.STORAGEBUCKET,
-  messagingSenderId: process.env.MESSAGINGSENDERID,
-  appId: process.env.APPID,
-  measurementId: process.env.MEASUREMENTID
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENTID
 };
-console.log(FIREBASE_CONFIG)
-console.log(process.env.APIKEY)
+console.log(firebaseConfig)
 console.log(process.env)
 // Initialize Firebase
 
-const app = initializeApp(process.env.NODE_ENV==='production' ? FIREBASE_CONFIG : process.env.FIREBASE_CONFIG);
+const app = initializeApp(firebaseConfig);
 const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider('fuzzybunnies'),
 
