@@ -1,0 +1,183 @@
+.comment-card {
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+.comment-header {
+  padding-top: 20px;
+  border-top: 2px solid #001bff3d;
+  width: 95%;
+  align-self: center;
+}
+
+.see-all-comments {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.see-all-comments .extender-btn {
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  color: #4285f4;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.button-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.see-all-comments-button {
+  position: relative;
+  background: none;
+  color: #007bff;
+  border: none;
+  padding: 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.see-all-comments:focus {
+  outline: none;
+}
+
+.tooltip {
+  width:20vw;
+  font-size: 15px;
+  height: 3vh;
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #007bff, #00bfff);
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.see-all-comments-button:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.see-all-comments-button .tooltip::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #007bff;
+}
+
+.h2 {
+  font-size: 20px;
+  color: #333;
+}
+
+.comment {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  transition: background-color 3s;
+}
+
+.comment:hover {
+  background: linear-gradient(to right, #00c3ff, #88f9ff, #fff);
+  background-size: 200% 100%;
+  animation: gradientHover 3s ease-in-out infinite;
+}
+
+@keyframes gradientHover {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  50% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.comment-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.comment-user {
+  font-size: 16px;
+  color: #4285f4;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.comment-date {
+  font-size: 14px;
+  color: #999;
+}
+
+.comment p {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}
+
+.edit-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00BFFF, #87CEFA);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none !important;
+}
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: .6s;
+  background: linear-gradient(135deg, #1E90FF, #87CEEB);
+  align-items: center;
+}
+
+.edit-button::before {
+  display: none;
+  content: "Edit";
+  color: white;
+  transition-duration: 0.6s;
+  font-size: 2px;
+}
+
+.edit-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}

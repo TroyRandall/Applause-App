@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.py[cod]
+.venv
+.DS_Store
+node_modules/
+.vscode/
+./sudo/*
+./sudo/google-cloud-sdk/cd app
+.install
+node_modules

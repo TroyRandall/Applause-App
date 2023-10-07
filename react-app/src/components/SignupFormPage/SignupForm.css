@@ -1,0 +1,163 @@
+[data-component="slideshow"] .slide {
+	display: none;
+  text-align: center;
+}
+
+[data-component="slideshow"] .slide.active {
+	display: block;
+}
+
+.slideshow-image {
+    height: 98vh;
+}
+
+#sign-up-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 150px;
+    margin-left: 150px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#sign-up-form-container {
+    background-color:white;
+    display: flex;
+    height: 98vh;
+    width: 35vw;
+    flex-flow: column;
+    box-shadow: 0px 10px 100px 0px;
+    border: 2px solid black;
+}
+
+.sign-up-form-item {
+    width: 17.5vw;
+    display: flex;
+    flex-flow: column;
+    align-items: baseline;
+    padding:20px;
+}
+
+#sign-up-title {
+    font-size: 5em;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    text-align: center;
+    margin: 0px;
+}
+
+#sign-up-info {
+    font-size: 1.8em;
+    font-weight: 700;
+    font-family: 'Caveat', cursive;
+    margin:0px;
+    height:5vh;
+    text-align: center;
+    align-self: center;
+}
+
+#sign-up-line-break {
+    width: 96%;
+    height: 2px;
+    color: #333;
+    background-color: #333;
+}
+
+#sign-up-line-break-2 {
+    width: 96%;
+    height: 1px;
+    color: #333;
+    background-color: #333;
+}
+
+.sign-up-form-field-container {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    height: 13vh;
+    width: 35vw;
+}
+
+.sign-up-form-labels {
+    font-size: 2.5em;
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+}
+
+#sign-up-form {
+    display: flex;
+    flex-flow:column;
+    align-items:flex-start;
+}
+
+.sign-up-form-input {
+      background-color: rgb(197,232,255);
+  height: 30px;
+  border-radius: 5px;
+  font-size: 1em;
+  box-shadow: 5px 5px 5px 1px rgb(68 68 68);
+}
+
+#sign-up-form-textarea {
+    background-color: rgb(197,232,255);
+    height: 60px;
+    border-radius: 5px;
+    font-size: 1.3em;
+    box-shadow: 5px 5px 5px 1px rgb(68 68 68);
+}
+
+.sign-up-form-item2 {
+    width: 33vw;
+    display: flex;
+    flex-flow: column;
+    padding:20px;
+    margin: 10px;
+}
+
+#sign-up-info2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    font-family: 'Caveat', cursive;
+    margin:0px;
+    height:5vh;
+    text-align: center;
+    align-self: center;
+}
+
+#sign-up-role-select {
+    background-color: rgb(197,232,255);
+    height: 30px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    box-shadow: 5px 5px 5px 1px rgb(68 68 68);
+    width:17vw;
+    margin:10px;
+}
+
+#sign-up-button {
+    height: 6vh;
+  background-color: #005dff;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.3em;
+  font-family: 'Bangers';
+  border: 2px solid rgb(48, 48, 48);
+  position: relative;
+  top: 2vh;
+  left: 2vw;
+}
+
+#sign-up-button:hover {
+    cursor: pointer;
+    scale: 1.2;
+    border: 2px solid antiquewhite;
+    box-shadow:5px 5px 5px 1px rgb(68, 68, 68)
+}
+
+.sign-up-form-field-container2 {
+    display: flex;
+    align-items: center;
+    height: 13vh;
+    width: 35vw;
+}

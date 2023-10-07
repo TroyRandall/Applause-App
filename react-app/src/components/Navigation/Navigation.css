@@ -1,0 +1,98 @@
+body {
+  background-color: #c3c3c342;
+}
+
+.profile-dropdown {
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
+
+#nav-container {
+  display:flex;
+  width:100%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  background-color:rgb(197, 232, 255)
+}
+
+.nav-flex-items {
+  height: 100%;
+  width: 100%;
+}
+
+#nav-logo-container {
+  font-family: Bangers;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 32px;
+}
+
+#nav-div-1 {
+  font-family: Bangers;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 45%;
+  height: 100%;
+  font-size: 32px;
+}
+
+#nav-logo {
+  height:55px;
+  width: 55px;
+  margin-left: 3px;
+}
+
+#nav-spotlight {
+  color: black;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#nav-title {
+  font-size: 4em;
+  color: black;
+}
+
+#nav-title-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Bangers;
+  font-weight: 700;
+
+}
+
+#Nav-buttons-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 2em;
+}
+
+#nav-div-2 {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: Bangers;
+  font-size: 1.2em;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+#nav-profile-button {
+  height: 58px;
+  width: 52px;
+}

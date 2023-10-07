@@ -1,0 +1,57 @@
+.edit-delete-comment {
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+.form-update {
+    --width-of-input: 200px;
+    --border-height: 1px;
+    --border-before-color: rgba(221, 221, 221, 0.39);
+    --border-after-color: #5891ff;
+    --input-hovered-color: #4985e01f;
+    position: relative;
+    width: var(--width-of-input);
+   }
+   /* styling of Input */
+   .input-update {
+    color: black;
+    height: 100%;
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 200%;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+   }
+   /* styling of animated border */
+   .input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 1s;
+   }
+   .input-border:focus {
+    background: #fff
+   }
+   textarea.input-update:focus{
+    background: #ffffff;
+    color: black;
+   }
+   /* Hover on Input */
+   .input-update:hover {
+    background: var(--input-hovered-color);
+    color: white;
+   }
+
+   /* === if you want to do animated border on typing === */
+   /* remove input:focus code and uncomment below code */
+   .input-update:valid ~ .input-border{
+     width: 200%;
+   }
