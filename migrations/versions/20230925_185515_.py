@@ -24,7 +24,7 @@ def upgrade():
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.Column('username', sa.Integer(), nullable=False),
+    sa.Column('username', sa.String(), nullable=False),
     sa.Column('postTitle', sa.String()),
     sa.Column('postContent', sa.String(length=255), nullable=False),
     sa.Column('imageSrc', sa.String()),
