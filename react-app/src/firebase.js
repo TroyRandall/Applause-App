@@ -7,13 +7,13 @@ import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 require('dotenv').config()
 
 const firebaseConfig = {
-  apiKey: process.env.APIKEY ||"AIzaSyBxrYpE7CcUCQQwvCTkYgiGgbAjsQUpd-w",
-  authDomain: process.env.AUTHDOMAIN || "applause-ce1e3.firebaseapp.com",
-  projectId: process.env.PROJECTID || "applause-ce1e3",
-  storageBucket: process.env.STORAGEBUCKET ||"applause-ce1e3.appspot.com",
-  messagingSenderId: process.env.MESSAGINGSENDERID ||"375036842231",
-  appId: process.env.APPID || "1:375036842231:web:0ed537b823a11f0b4a43f2",
-  measurementId: process.env.MEASUREMENTID || "G-4MWCWZMY41"
+  apiKey: process.env.APIKEY,
+  authDomain: process.env.AUTHDOMAIN ,
+  projectId: process.env.PROJECTID ,
+  storageBucket: process.env.STORAGEBUCKET ,
+  messagingSenderId: process.env.MESSAGINGSENDERID,
+  appId: process.env.APPID,
+  measurementId: process.env.MEASUREMENTID
 };
 
 console.log(process.env)
