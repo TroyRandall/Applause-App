@@ -55,9 +55,9 @@
 }
 
 .error-tooltip-comment {
-  position: absolute;
-  top: 20vh;
-  font-size: 18px;
+  position: relative;
+  top: 1vh;
+  font-size: 17px;
   background: #ffffff;
   color: #ffffff;
   padding: 5px 8px;
@@ -71,10 +71,10 @@
 .error-tooltip-comment::before {
   position: absolute;
   content: "";
-  height: 8px;
-  width: 8px;
+  height: 12px;
+  width: 12px;
   background: #ffffff;
-  bottom: -3px;
+  top: -3px;
   left: 50%;
   transform: translate(-50%) rotate(45deg);
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);

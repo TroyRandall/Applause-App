@@ -20,6 +20,9 @@ function CommentCard ({ comment, postId }) {
         let username = currentUser?.username;
         let id = commentId;
         let comment = { id, commentContent, userId, username, postId};
+        if(commentContent !== ''){
+
+
         await dispatch(commentActions.updateApplauseCommentThunk(comment)).then((res) => {
           if(res){
             setErrors(res);
@@ -31,7 +34,13 @@ function CommentCard ({ comment, postId }) {
             setErrors(false);
           }
 
-        })
+        }) } else {
+          let newErrors = {}
+          if (commentContent?.length < 1) newErrors.commentContent = 'Comments Cannot Be Updated To Empty, Use Delete For This Action'
+          else if (commentContent?.length > 250) newErrors.commentContent = 'Comments Cannot Exceed 250 Characters'
+          setErrors(newErrors);
+          setTimeout(() => setErrors({}), 5000)
+        }
 
       }
 
@@ -40,6 +49,7 @@ function CommentCard ({ comment, postId }) {
       <div className="comment-user">{comment?.username}</div>
       <div className="comment-date">{comment?.created_at.slice(0,12)}</div>
     </div>
+    <div className='error-comment'>
     <div className='form-update'>
        <textarea
     type='text'
@@ -49,7 +59,8 @@ function CommentCard ({ comment, postId }) {
     className='input-update'></textarea>
     <span class="input-border"></span>
     </div>
-
+    <span className={errors?.commentContent ? 'error-tooltip-comment' : 'hidden'}>{errors?.commentContent}</span>
+</div>
     <button type='submit' onClick={handleSubmit} >Save</button>
   </form> :
       <div className="comment">

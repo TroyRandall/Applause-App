@@ -22,10 +22,14 @@ function CreateComment({ postId }) {
     if (commentContent !== "") {
       await dispatch(commentActions.createApplauseCommentThunk(comment)).then(
         (res) => {
-          if (res) setErrors(res);
+          if (res) {
+            setErrors(res);
           return errors;
+        } else {
+          setCommentContent('')
+          setErrors({})
         }
-      );
+    });
     } else {
       let newErrors = {}
       if (commentContent?.length < 1) newErrors.commentContent = 'Comments Must Have Some Content Before They Can Be Posted'
