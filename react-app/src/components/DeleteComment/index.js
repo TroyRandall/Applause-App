@@ -37,7 +37,7 @@ function DeleteComment({ commentId, postId }) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    console.log(e.target);
+    console.log(deleteCommentContainerRef.current.contains(e.target));
     if (deleteCommentRef.current.contains(e.target)) {
       const res = await dispatch(
         commentActions.deleteApplauseCommentThunk(commentId, postId)
@@ -49,25 +49,27 @@ function DeleteComment({ commentId, postId }) {
       } else {
         setDeleteCommentToggle(false);
       }
-    } else if (!deleteCommentContainerRef.current.contains(e.target) || !deleteCommentDenyRef.current.contains(e.target)) {
+    } else if ( !deleteCommentContainerRef.current.contains(e.target) ||deleteCommentDenyRef.current.contains(e.target)) {
       setDeleteCommentToggle(false);
     }
   };
 
   const toggleDeleteModal = () => {
-    setDeleteCommentToggle(true);
+    setDeleteCommentToggle(!deleteCommentToggle);
   };
   const checkDeleteModal = () => {
     if (deleteCommentToggle) {
       return (
-        <div class="delete-card-comment">
+        <div class="delete-card-comment" ref={deleteCommentContainerRef} >
           <div class="delete-card__icon-comment">🗑️</div>
           <div class="delete-card__title-comment">
             Are you sure you want to delete this comment?
           </div>
           <div class="delete-card__buttons-comment">
             <div class="delete-card__button-comment delete-card__button--cancel-comment"
-            ref={deleteCommentDenyRef}>
+            ref={deleteCommentDenyRef}
+            onClick={handleDelete}>
+
               Cancel
             </div>
             <div
@@ -77,8 +79,8 @@ function DeleteComment({ commentId, postId }) {
             >
               Confirm
             </div>
-          </div>
-        </div>
+          </div></div>
+
       );
     }
   };

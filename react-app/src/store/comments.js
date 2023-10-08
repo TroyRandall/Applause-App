@@ -1,5 +1,6 @@
 const CREATE_APPLAUSE_COMMENT = "comments/CREATE_APPLAUSE_COMMENT";
 const GET_ALL_COMMENTS = "comments/GET_ALL_COMMENTS";
+const GET_LAST_COMMENTS = "comments/GET_LAST_COMMENTS";
 const UPDATE_APPLAUSE_COMMENT = "comments/UPDATE_APPLAUSE_COMMENT";
 const DELETE_APPLAUSE_COMMENT = "comments/DELETE_APPLAUSE_COMMENT";
 
@@ -18,6 +19,14 @@ const getAllComments = (data, postId) => ({
     postId: postId
   }
 });
+
+const getLastComments = (data, postId) => ({
+  type: GET_LAST_COMMENTS,
+  payload: {
+    data: data,
+    postId: postId
+  }
+})
 
 const updateApplauseComment = (data, postId) => ({
   type: UPDATE_APPLAUSE_COMMENT,
@@ -62,6 +71,24 @@ export const createApplauseCommentThunk = (comment) => async (dispatch) => {
   }
 };
 
+export const getLastCommentsThunk = (postId) => async(dispatch) => {
+  const response = await fetch(`/api/comments/${postId}`);
+  if (response.ok) {
+    const data = await response.json();
+    let normalizedData = {};
+    data.forEach((comment) => {
+      normalizedData[comment.id] = comment;
+    });
+    await dispatch(getAllComments(normalizedData, postId));
+    return null;
+  }
+  else {
+    return {
+      errors: "Unable To Fetch Comment Data, Please Try Again Later",
+    };
+  }
+
+}
 export const getAllCommentsThunk = (postId) => async (dispatch) => {
   const response = await fetch(`/api/comments/${postId}`);
 

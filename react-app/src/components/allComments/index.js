@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as commentActions from "../../store/comments.js";
@@ -12,6 +12,8 @@ function AllComments({ postId }) {
   const [commentId, setCommentId] = useState(false);
   const [commentContent, setCommentContent] = useState(false)
   const [errors, setErrors] = useState(false);
+  const [seeComments, setSeeComments] = useState(false);
+  const [lastComments, setLastComments] = useState({});
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments[postId]);
   const currentUser = useSelector((state) => state.session.user);
@@ -22,26 +24,55 @@ function AllComments({ postId }) {
         setIsLoaded(true)
       );
     }
-  }, [postId]);
 
+  }, [postId, dispatch]);
 
+useCallback(() => {
+  console.log(comments);
+    if(comments?.length > 0){
+      let formattedComments = {};
+      let count = 0;
+      comments.reverse().forEach((comment) => {
+        while(count < 3){
+        formattedComments[comment?.id]=comment;
+        count++
+        }
+      })
+      setLastComments(formattedComments)
+    }
+  }, [comments, postId, dispatch])
+
+const toggleComments = () => {
+  setSeeComments(!seeComments)
+}
 
   return (
     isLoaded && (comments ?
       <div class="comment-card">
       <div class="see-all-buttons">
       <div class="button-wrapper">
-  <button class="see-all-comments-button">
+        {!seeComments ?
+  (Object.values(comments)?.length > 3 ? <button class="see-all-comments-button" onClick={toggleComments}>
     See All Comments...
     <span class="tooltip">Click to Show All The Comments For This Post</span>
-  </button>
+  </button>: null) :
+  (Object.values(comments)?.length > 3 ? <button class="see-all-comments-button" onClick={toggleComments}>
+  Hide Comments...
+  <span class="tooltip">Click to Hide All The Comments For This Post</span>
+</button> : null)}
 </div>
         <div class="h2"></div>
       </div>
       <div class="comment-body">
-        {Object.values(comments).map((comment) => {
+        { !seeComments ? Object.values(comments).map((comment) => {
           if (comment) {
-            return <CommentCard comment={comment} postId={postId} />
+            if(comment?.id + 3 >= Object.values(comments).length){
+               return <CommentCard comment={comment} postId={postId} key={comment?.id} />
+            } else return null;
+          } else return null;
+        }) : Object.values(comments).map((comment) => {
+          if (comment) {
+            return <CommentCard comment={comment} postId={postId} key={comment?.id}/>
           } else return null;
         })}
         {currentUser ? <CreateComment postId={postId} /> : null}

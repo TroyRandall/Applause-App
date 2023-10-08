@@ -49,6 +49,7 @@
 }
 
 .tooltip {
+  z-index: 100;
   width:20vw;
   font-size: 15px;
   height: 3vh;
