@@ -26,10 +26,15 @@ function CreateComment({ postId }) {
           return errors;
         }
       );
+    } else {
+      if (commentContent?.length < 1) setErrors('Comments Must Have Some Content Before They Can Be Posted')
+      else if (commentContent?.length > 250) setErrors('Comments Cannot Exceed 250 Characters')
     }
-  };
+  }
+  
 
   return (
+    <div className='error-comment'>
     <div class="comment-footer">
       <input
       type='textarea'
@@ -47,6 +52,9 @@ function CreateComment({ postId }) {
       >
         Post
       </button>
+
+    </div>
+    <span className='error-tooltip-comment'>{errors}</span>
     </div>
   );
 }

@@ -13,6 +13,7 @@ def get_posts(id):
 
 @post_routes.route('/<int:id>', methods=['POST', 'PUT'])
 def create_post(id):
+    print(request.method)
     if(request.method == 'PUT'):
         currentUser = User.query.get(id)
         form = UpdatePostForm()
@@ -31,6 +32,7 @@ def create_post(id):
     elif(request.method == 'POST'):
             currentUser = User.query.get(id)
             form = CreatePostForm()
+            print(form.data)
             form['csrf_token'].data = request.cookies['csrf_token']
             if form.validate():
                 newPost = Post(

@@ -6,7 +6,7 @@ class UpdatePostForm(FlaskForm):
     id = IntegerField('id')
     userId=IntegerField('userId')
     username = StringField('username')
-    postTitle = StringField('post title',validators=[DataRequired()] )
+    postTitle = StringField('post title' )
     postContent = StringField('post content', validators=[DataRequired()])
     imageSrc = StringField('image src')
     musicSrc = StringField('music src')
