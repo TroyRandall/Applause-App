@@ -10,7 +10,9 @@ function Navigation({ isLoaded }) {
   const profileURL = `/profile/${currentUser?.id}`;
 
   return (
-    isLoaded && (
+    isLoaded && (<div>
+
+
       <div class="navbar" id="nav-container">
         <div class="wave"></div>
         <div class="wave"></div>
@@ -49,9 +51,6 @@ function Navigation({ isLoaded }) {
                   <NavLink exact to={profileURL}>
                     <h3 style={{ textDecoration: "none" }}>Profile</h3>
                   </NavLink>
-                  <NavLink exact to="/events">
-                    <h3 style={{ textDecoration: "none" }}>Events</h3>
-                  </NavLink>
                 </>
               ) : (
                 <>
@@ -71,10 +70,11 @@ function Navigation({ isLoaded }) {
                   </NavLink>
                 </>
               )}
-              <ProfileButton user={currentUser} />
+
             </div>
           </div>
         </div>
+      </div><ProfileButton user={currentUser} />
       </div>
     )
   );

@@ -7,9 +7,11 @@ import SignupFormModal from "../SignupFormModal";
 
 import { auth } from '../../firebase'
 import { signOut } from "firebase/auth";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -50,26 +52,22 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
+          <div className="profile-card">
+  <div className="name-profile-card">John Doe</div>
+  <div className="username-profile-card">@{user?.username}</div>
+  <div className="email-profile-card">{user?.email}</div>
+  <div className="account-type-profile-card">Premium Account</div>
+  <button className="logout-profile-card" onClick={handleLogout}>Log Out</button>
+</div>
           </>
         ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
+          <div class="login-card">
+  <div class="instruction-text">Welcome back!</div>
+  <button class="signin" onClick={() => [setShowMenu(false), history.push('/login')]}>Sign in</button>
+    <div class="instruction-text-mini">Don't have an Account?</div>
+  <button class="create-account" onClick={() => [setShowMenu(false),history.push('/signup')]}>Create Account</button>
+</div>
 
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
         )}
       </ul>
     </>

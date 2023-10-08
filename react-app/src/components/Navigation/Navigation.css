@@ -80,6 +80,8 @@ body {
 
 .profile-dropdown {
   position: absolute;
+  top: 15vh;
+  right: 1vw;
 }
 
 .hidden {
@@ -166,9 +168,144 @@ body {
   font-size: 1.2em;
   text-decoration: none;
   font-weight: 700;
+  margin-right: 25px;
 }
 
 #nav-profile-button {
   height: 58px;
   width: 52px;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.login-card {
+  width: 220px;
+  height: 200px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 2px 2px 15px rgb(193, 193, 193);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.instruction-text {
+  color: rgb(100, 100, 100);
+  font-weight: 700;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.instruction-text-mini {
+  color: rgb(100, 100, 100);
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.login-card button {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 17px;
+  width: 70%;
+  border: 2px solid transparent;
+  border-radius: 5em;
+  font-weight: bold;
+  font-family: sans-serif;
+  transition: 0.2s;
+}
+
+.signin {
+  background-color: #1b77da;
+  color: #f2f2f2;
+}
+
+.signin:hover {
+  background-color: transparent;
+  color: #1b77da;
+  border: 2px solid #1b77da;
+}
+
+.create-account {
+  background-color: #e8e8e8;
+  color: #1b77da;
+}
+
+.create-account:hover {
+  background-color: transparent;
+  color: #1b77da;
+  border: 2px solid #1b77da;
+}
+
+.profile-card {
+  width: 220px;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: 2px 2px 15px rgb(193, 193, 193);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.name-profile-card {
+  color: #1b77da;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.username-profile-card {
+  color: rgb(100 100 100);
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.email-profile-card {
+  color: rgb(100 100 100);
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.account-type-profile-card {
+  color: rgb(100 100 100);
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.profile-card button {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 17px;
+  width: 70%;
+  margin-bottom: 10px;
+  border: 2px solid transparent;
+  border-radius: 5em;
+  font-weight: bold;
+  font-family: sans-serif;
+  transition: 0.2s;
+}
+
+.logout-profile-card {
+  background-color: #1b77da;
+  color: #f2f2f2;
+}
+
+.logout-profile-card:hover {
+  background-color: transparent;
+  color: #1b77da;
+  border: 2px solid #1b77da;
 }
