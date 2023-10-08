@@ -56,8 +56,8 @@
 
 .error-tooltip-comment {
   position: absolute;
-  top: 29vh;
-  font-size: 14px;
+  top: 20vh;
+  font-size: 18px;
   background: #ffffff;
   color: #ffffff;
   padding: 5px 8px;
@@ -90,6 +90,6 @@
 
 .error-comment .error-tooltip-comment,
 .error-comment .error-tooltip-comment::before {
-  background: linear-gradient(320deg, rgb(255, 0, 0), rgb(146, 3, 3));
+  background: linear-gradient(320deg, rgb(255, 67, 67), rgb(255, 44, 44));
   color: #ffffff;
 }

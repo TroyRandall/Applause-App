@@ -27,11 +27,14 @@ function CreateComment({ postId }) {
         }
       );
     } else {
-      if (commentContent?.length < 1) setErrors('Comments Must Have Some Content Before They Can Be Posted')
-      else if (commentContent?.length > 250) setErrors('Comments Cannot Exceed 250 Characters')
+      let newErrors = {}
+      if (commentContent?.length < 1) newErrors.commentContent = 'Comments Must Have Some Content Before They Can Be Posted'
+      else if (commentContent?.length > 250) newErrors.commentContent = 'Comments Cannot Exceed 250 Characters'
+      setErrors(newErrors);
+      setTimeout(() => setErrors({}), 5000)
     }
   }
-  
+
 
   return (
     <div className='error-comment'>
@@ -54,7 +57,7 @@ function CreateComment({ postId }) {
       </button>
 
     </div>
-    <span className='error-tooltip-comment'>{errors}</span>
+    <span className={errors?.commentContent ? 'error-tooltip-comment' : 'hidden'}>{errors?.commentContent}</span>
     </div>
   );
 }
