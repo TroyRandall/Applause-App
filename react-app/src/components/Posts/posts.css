@@ -255,9 +255,8 @@
 .edit-post {
   z-index: 0;
   right: 5vw;
-  top: 1vh;
+  top: 3vh;
   position: relative;
-  background: #ffffff;
   color: #000;
   border-radius: 10px;
   width: 40px;
@@ -328,9 +327,9 @@
 .delete-post {
   z-index: 0;
   right: 5vw;
-  top: 1vh;
+  top: 3vh;
   position: relative;
-  background: #ffffff;
+  /* background: #ffffff; */
   color: #000;
   border-radius: 10px;
   width: 40px;

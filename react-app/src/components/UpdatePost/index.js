@@ -184,7 +184,7 @@ function UpdatePost({ post, musicSource, imageSource }) {
           <div id="create-post-component-container-update">
             <div id="create-post-content-container-update" ref={editPostRef}>
               <div id="create-post-preview-container-update" className="card">
-                {imageSrc ? (
+                {imageSrc!=='false' && (imageSrc !== '0' && imageSrc !==null) ? (
                   <img
                     className="card-image"
                     src={imageSrc || post?.imageSrc}

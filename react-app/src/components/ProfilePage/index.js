@@ -97,6 +97,8 @@ function ProfilePage() {
     imageToggle,
     musicToggle,
     currentUser,
+    description,
+    errors
   ]);
 
   const toggleModal = () => {
@@ -143,7 +145,7 @@ function ProfilePage() {
       let postContent = quickPost;
       if (postContent === null) return null;
       else {
-        post = { postContent: postContent };
+        let post = { postContent: postContent };
         dispatch(postActions.createApplausePostThunk(post)).then((res) => {
           if (res !== null) {
             setErrors(res);
@@ -162,43 +164,68 @@ function ProfilePage() {
           }
         });
       }
-    }
-    let postContent = description;
-    let userId = currentUser.id;
-    let username = currentUser.username;
-    let imageSrc = imageURL;
-    let musicSrc = musicUrl;
-
-    let post = { userId, username, postTitle, postContent, imageSrc, musicSrc };
-    dispatch(postActions.createApplausePostThunk(post)).then((res) => {
-      if (res !== null) {
-        setErrors(res);
-        return res;
-      } else {
-        setToggle(false);
-        setPostTitle(null);
-        setImageUpload(false);
-        setImageUrl(false);
-        setMusicUrl(false);
-        setMusicUpload(false);
-        setDescription(null);
-        setErrors(false);
-        setImageToggle(false);
-        setMusicToggle(false);
+    } else {
+      let newErrors = {};
+      if (description?.length < 1)
+        newErrors.postContent = "Details About Your Post Are Required";
+      if (description?.length > 255)
+        newErrors.postContent =
+          "Your Post Cannot Be Greater Than 255 Characters";
+      if (imageLoading !== false)
+        newErrors.imageLoading =
+          "You Must Wait For The Image To Upload Before Creating Your Post";
+      if (musicLoading !== false)
+        newErrors.musicLoading =
+          "You Must Wait For The Music To Upload Before Creating Your Post";
+      let postContent = description;
+      let userId = currentUser.id;
+      let username = currentUser.username;
+      let imageSrc = imageURL;
+      let musicSrc = musicUrl;
+      setErrors(newErrors);
+      setTimeout(() => setErrors({}), 5000);
+      if (Object.values(newErrors).length > 0) return;
+      else {
+        let post = {
+          userId,
+          username,
+          postTitle,
+          postContent,
+          imageSrc,
+          musicSrc,
+        };
+        dispatch(postActions.createApplausePostThunk(post)).then((res) => {
+          console.log(res);
+          if (res !== null) {
+            setErrors(res);
+            return res;
+          } else {
+            setToggle(false);
+            setPostTitle('');
+            setImageUpload(false);
+            setImageUrl(false);
+            setMusicUrl(false);
+            setMusicUpload(false);
+            setDescription('');
+            setErrors({});
+            setImageToggle(false);
+            setMusicToggle(false);
+          }
+        });
       }
-    });
+    }
   };
 
   const resetForm = (e) => {
     if (overlayRef.current === e.target || createPostRef.current === e.target) {
       setToggle(false);
-      setPostTitle(null);
+      setPostTitle('');
       setImageUpload(false);
       setImageUrl(false);
       setMusicUrl(false);
       setMusicUpload(false);
-      setDescription(null);
-      setErrors(false);
+      setDescription('');
+      setErrors({});
       setImageToggle(false);
       setMusicToggle(false);
     }
@@ -252,6 +279,20 @@ function ProfilePage() {
               </div>
               <form id="create-post-forms-container" onSubmit={handleSubmit}>
                 <div id="create-post-component" className="form2">
+                  <p
+                    className={
+                      errors?.musicLoading ? "error-loading" : "hidden"
+                    }
+                  >
+                    {errors?.musicLoading}
+                  </p>
+                  <p
+                    className={
+                      errors?.imageLoading ? "error-loading" : "hidden"
+                    }
+                  >
+                    {errors?.imageLoading}
+                  </p>
                   <p className={musicLoading ? "upload-loading" : "hidden"}>
                     Your Music Is Uploading...
                   </p>
@@ -280,48 +321,62 @@ function ProfilePage() {
                   </div>
 
                   <div className="form-group">
-                    <label for="post-description">Post Details</label>
-                    <textarea
-                      type="text"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      placeholder="Please Enter Some Details About Your Post..."
-                      required
-                      id="post-description"
-                    />{" "}
+                    {" "}
+                    <div class="error-post">
+                      <label for="post-description">Post Details</label>
+                      <textarea
+                        type="text"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="Please Enter Some Details About Your Post..."
+                        id="post-description"
+                      />{" "}
+                      <span className={errors?.postContent ? "error-tooltip" : 'hidden'}>{errors?.postContent}</span>
+                    </div>
                   </div>
 
                   <div className="form-group">
-                    <label for="music-input">Music Input</label>
-                    <input
-                      required=""
-                      id="music-input"
-                      accept="audio/*"
-                      type="file"
-                      onChange={(e) => [
-                        setMusicUpload(e.target.files[0]),
-                        setMusicToggle(true),
-                      ]}
-                    />
+                    <div className="error-post">
+                      <label for="music-input">Music Input</label>
+                      <input
+                        required=""
+                        id="music-input"
+                        accept="audio/*"
+                        type="file"
+                        onChange={(e) => [
+                          setMusicUpload(e.target.files[0]),
+                          setMusicToggle(true),
+                        ]}
+                      />
+                      <span class={errors?.musicUrl ? "error-tooltip" : 'hidden'}id="error-music">
+                        {errors?.musicUrl}
+                      </span>
+                    </div>
                   </div>
                 </div>{" "}
                 <div className="form">
-                  <span className="form-title">Upload your file</span>
-                  <p className="form-paragraph">File should be an image</p>
-                  <label for="file-input" className="drop-container">
-                    <span className="drop-title">Drop files here</span>
-                    or
-                    <input
-                      type="file"
-                      accept="image/*"
-                      required=""
-                      id="file-input"
-                      onChange={(e) => [
-                        setImageUpload(e.target.files[0]),
-                        setImageToggle(true),
-                      ]}
-                    />
-                  </label>
+                  <div className="errors-post">
+                    <span className="form-title">Upload your file</span>
+                    <p className="form-paragraph">File should be an image</p>
+                    <label for="file-input" className="drop-container">
+                      <span className="drop-title">Drop files here</span>
+                      or
+                      <input
+                        type="file"
+                        accept="image/*"
+                        required=""
+                        id="file-input"
+                        onChange={(e) => [
+                          setImageUpload(e.target.files[0]),
+                          setImageToggle(true),
+                        ]}
+                      />
+                    </label>
+                    <span class={errors?.imageUrl ? "error-tooltip" : 'hidden'} id="error-image">
+                      {errors?.imageUrl}
+                    </span>
+                  </div>
+
                   <button type="submit">Create Post</button>
                 </div>
               </form>
@@ -420,7 +475,7 @@ function ProfilePage() {
                         <div className="post-container">
                           {" "}
                           <Post post={post} key={post.id} />
-                          <div id='post-update-delete-container'>
+                          <div id="post-update-delete-container">
                             <UpdatePost
                               post={post}
                               musicSource={post.musicSrc}

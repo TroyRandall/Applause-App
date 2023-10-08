@@ -3,10 +3,12 @@ body {
 }
 
 .navbar {
+  margin-top: 20px;
+  border: 1px solid darkgrey;
   position: relative;
   background: transparent;
   height: 80px;
-  width:99vw;
+  width: 99vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,13 +48,7 @@ body {
   z-index: 100;
 }
 
-.name {
-  font-size: 14px;
-  font-weight: 100;
-  position: relative;
-  top: 1em;
-  text-transform: lowercase;
-}
+
 
 .wave:nth-child(2),
 .wave:nth-child(3) {
