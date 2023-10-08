@@ -33,7 +33,7 @@ function UpdatePost({ post, musicSource, imageSource }) {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.session.user);
-  const posts = useSelector((state) => state.posts.userPosts)
+  const posts = useSelector((state) => state.posts.userPosts);
 
   const containerUpdateRef = useRef();
   const waveformRefUpdate = useRef(null);
@@ -41,8 +41,10 @@ function UpdatePost({ post, musicSource, imageSource }) {
   const editPostRef = useRef();
 
   useEffect(() => {
-    if (musicSrc === "") setMusicSrc(null);
-    if (imageSrc === "") setImageSrc(null);
+    console.log(post);
+    console.log(musicSrc);
+    if (musicSrc === "0") setMusicSrc(null);
+    if (imageSrc === "0") setImageSrc(null);
     if (imageToggle) uploadImage();
     if (musicToggle) uploadMusic();
     if (containerUpdateRef.current && waveformRefUpdate.current === null) {
@@ -81,6 +83,7 @@ function UpdatePost({ post, musicSource, imageSource }) {
     currentUser,
     musicSrc,
     imageSrc,
+    errors,
   ]);
   const toggleModal = () => {
     setUpdateToggle(true);
@@ -90,31 +93,49 @@ function UpdatePost({ post, musicSource, imageSource }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let userId = currentUser.id;
-    let username = currentUser.username;
-    let id = post.id;
+    let newErrors = {};
+    if (postContent?.length < 1)
+      newErrors.postContent = "Details About Your Post Are Required";
+    if (postContent?.length > 255)
+      newErrors.postContent = "Your Post Cannot Be Greater Than 255 Characters";
+    if (imageLoading !== false)
+      newErrors.imageLoading =
+        "You Must Wait For The Image To Upload Before Creating Your Post";
+    if (musicLoading !== false)
+      newErrors.musicLoading =
+        "You Must Wait For The Music To Upload Before Creating Your Post";
+    setErrors(newErrors);
+    setTimeout(() => setErrors({}), 5000);
+    if (Object.values(newErrors).length > 0) return;
+    else {
+      let userId = currentUser.id;
+      let username = currentUser.username;
+      let id = post.id;
 
-    let updatedPost = {
-      id,
-      userId,
-      username,
-      postTitle,
-      postContent,
-      imageSrc,
-      musicSrc,
-    };
+      let updatedPost = {
+        id,
+        userId,
+        username,
+        postTitle,
+        postContent,
+        imageSrc,
+        musicSrc,
+      };
 
-    dispatch(postActions.updateApplausePostThunk(updatedPost)).then((res) => {
-      if (res) {
-        setErrors(res);
-        return res;
-      } else {
-        setErrors(false);
-        setImageToggle(false);
-        setMusicToggle(false);
-        setUpdateToggle(false);
-      }
-    });
+      dispatch(postActions.updateApplausePostThunk(updatedPost)).then((res) => {
+        if (res) {
+          setErrors(res);
+          return res;
+        } else {
+          setErrors(false);
+          setImageToggle(false);
+          setMusicToggle(false);
+          setUpdateToggle(false);
+          waveformRefUpdate.current.destroy()
+          waveformRefUpdate.current = null
+        }
+      });
+    }
   };
 
   const uploadImage = (e) => {
@@ -165,9 +186,11 @@ function UpdatePost({ post, musicSource, imageSource }) {
       setImageSrc(post?.imageSrc);
       setMusicSrc(post?.musicSrc);
       setPostContent(post?.postContent);
-      setErrors(false);
+      setErrors({});
       setImageToggle(false);
       setMusicToggle(false);
+      waveformRefUpdate.current.destroy()
+      waveformRefUpdate.current = null
     }
   };
 
@@ -184,7 +207,9 @@ function UpdatePost({ post, musicSource, imageSource }) {
           <div id="create-post-component-container-update">
             <div id="create-post-content-container-update" ref={editPostRef}>
               <div id="create-post-preview-container-update" className="card">
-                {imageSrc!=='false' && (imageSrc !== '0' && imageSrc !==null) ? (
+                {imageSrc !== "false" &&
+                imageSrc !== "0" &&
+                imageSrc !== null ? (
                   <img
                     className="card-image"
                     src={imageSrc || post?.imageSrc}
@@ -207,7 +232,11 @@ function UpdatePost({ post, musicSource, imageSource }) {
                   </p>
                   <div id="waveSurfer-container-update">
                     <button
-                      className={musicSrc ? "play-btn" : "hidden"}
+                      className={
+                        (musicSrc !== null && musicSrc !== false) && waveformRefUpdate?.current
+                          ? "play-btn"
+                          : "hidden"
+                      }
                       id="play/pause-wavesurfer-update"
                     ></button>
                     <div id="waveSurfer" ref={containerUpdateRef}></div>
@@ -224,6 +253,20 @@ function UpdatePost({ post, musicSource, imageSource }) {
                 onSubmit={handleSubmit}
               >
                 <div id="create-post-component-update" className="form2">
+                  <p
+                    className={
+                      errors?.musicLoading ? "error-loading" : "hidden"
+                    }
+                  >
+                    {errors?.musicLoading}
+                  </p>
+                  <p
+                    className={
+                      errors?.imageLoading ? "error-loading" : "hidden"
+                    }
+                  >
+                    {errors?.imageLoading}
+                  </p>
                   <p className={musicLoading ? "upload-loading" : "hidden"}>
                     Your Music Is Uploading...
                   </p>
@@ -241,27 +284,36 @@ function UpdatePost({ post, musicSource, imageSource }) {
                     Share Your Thoughts, Photos, and Music
                   </p>
                   <div className="form-group">
-                    <label for="post-title-update">Post Title</label>
-                    <input
-                      type="text"
-                      value={postTitle}
-                      onChange={(e) => setPostTitle(e.target.value)}
-                      placeholder="Title..."
-                      required
-                      id="post-title-update"
-                    />
+                    <div className="error-post">
+                      <label for="post-title-update">Post Title</label>
+                      <input
+                        type="text"
+                        value={postTitle}
+                        onChange={(e) => setPostTitle(e.target.value)}
+                        placeholder="Title..."
+                        id="post-title-update"
+                      />
+                    </div>
                   </div>
 
                   <div className="form-group">
-                    <label for="post-description-update">Post Details</label>
-                    <textarea
-                      type="text"
-                      value={postContent}
-                      onChange={(e) => setPostContent(e.target.value)}
-                      placeholder="Please Enter Some Details About Your Post..."
-                      required
-                      id="post-description-update"
-                    />{" "}
+                    <div className="error-post">
+                      <label for="post-description-update">Post Details</label>
+                      <textarea
+                        type="text"
+                        value={postContent}
+                        onChange={(e) => setPostContent(e.target.value)}
+                        placeholder="Please Enter Some Details About Your Post..."
+                        id="post-description-update"
+                      />{" "}
+                      <span
+                        className={
+                          errors?.postContent ? "error-tooltip" : "hidden"
+                        }
+                      >
+                        {errors?.postContent}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="form-group">
@@ -274,6 +326,8 @@ function UpdatePost({ post, musicSource, imageSource }) {
                       onChange={(e) => [
                         setMusicSrc(e.target.files[0]),
                         setMusicToggle(true),
+                        waveformRefUpdate?.current.destroy(),
+                        waveformRefUpdate.current = null
                       ]}
                     />
                   </div>
