@@ -7,7 +7,7 @@ import SignupFormModal from "../SignupFormModal";
 
 import { auth } from '../../firebase'
 import { signOut } from "firebase/auth";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -63,10 +63,13 @@ function ProfileButton({ user }) {
         ) : (
           <div class="login-card">
   <div class="instruction-text">Welcome back!</div>
-  <button class="signin" onClick={() => [setShowMenu(false), history.push('/login')]}>Sign in</button>
+  <NavLink exact to='/login'>
+  <button class="signin" onClick={() => [setShowMenu(false), history.push('/login')]}>Sign in</button></NavLink>
     <div class="instruction-text-mini">Don't have an Account?</div>
-  <button class="create-account" onClick={() => [setShowMenu(false),history.push('/signup')]}>Create Account</button>
+    <NavLink exact to='/signup'>
+  <button class="create-account" onClick={() => [setShowMenu(false),history.push('/signup')]}>Create Account</button></NavLink>
 </div>
+
 
         )}
       </ul>
