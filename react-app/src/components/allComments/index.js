@@ -28,7 +28,6 @@ function AllComments({ postId }) {
   }, [postId, dispatch]);
 
 useCallback(() => {
-  console.log(comments);
     if(comments?.length > 0){
       let formattedComments = {};
       let count = 0;

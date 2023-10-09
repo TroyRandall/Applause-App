@@ -195,7 +195,6 @@ function ProfilePage() {
           musicSrc,
         };
         dispatch(postActions.createApplausePostThunk(post)).then((res) => {
-          console.log(res);
           if (res !== null) {
             setErrors(res);
             return res;

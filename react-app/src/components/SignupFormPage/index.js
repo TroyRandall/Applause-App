@@ -94,18 +94,18 @@ function SignupFormPage() {
               role
             )
           );
-          console.log(response);
           if (!response) {
             const data = await createUserWithEmailAndPassword(
               auth,
               email,
               password
             );
+
             sendEmailVerification(auth.currentUser);
+            return <Redirect to="/" />
           } else {
             let newErrors = {};
             Object.values(response).forEach((error) => {
-              console.log(error.split(':')[1])
               if(error?.includes('Email')) newErrors.email = (error.split(':')[1])
               else newErrors.username = (error.split(':')[1])
             })
@@ -114,7 +114,6 @@ function SignupFormPage() {
             return null;
           }
         } catch (error) {
-          console.log(error);
           setErrors([error.message.split("(")[1]]);
         }
       } else {

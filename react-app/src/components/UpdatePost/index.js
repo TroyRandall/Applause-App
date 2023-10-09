@@ -41,8 +41,6 @@ function UpdatePost({ post, musicSource, imageSource }) {
   const editPostRef = useRef();
 
   useEffect(() => {
-    console.log(post);
-    console.log(musicSrc);
     if (musicSrc === "0") setMusicSrc(null);
     if (imageSrc === "0") setImageSrc(null);
     if (imageToggle) uploadImage();

@@ -12,6 +12,8 @@ function Post({ post }) {
   const [playToggle, setPlayToggle] = useState(false);
 
   useEffect(() => {
+    console.log(post)
+    console.log(post?.id)
     if (containerRefPost?.current && waveformRefPost?.current === null)
       waveformRefPost.current = WaveSurfer.create({
         container: containerRefPost.current,
@@ -66,12 +68,12 @@ function Post({ post }) {
           {post?.postContent}
         </p>
         <div
-          id={post?.musicSrc !== "0" ? "post-waveSurfer-container" : "hidden"}
+          id={post?.musicSrc !== "0" && post?.musicSrc !== false ? "post-waveSurfer-container" : "hidden"}
         >
           <button
             onClick={playPause}
             className={
-              post?.musicSrc !== "0"
+              post?.musicSrc !== "0" && post?.musicSrc !== false
                 ? playToggle
                   ? "pause-btn"
                   : "play-btn"

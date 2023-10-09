@@ -37,13 +37,11 @@ function DeleteComment({ commentId, postId }) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    console.log(deleteCommentContainerRef.current.contains(e.target));
     if (deleteCommentRef.current.contains(e.target)) {
       const res = await dispatch(
         commentActions.deleteApplauseCommentThunk(commentId, postId)
       );
       if (res) {
-        console.log(res);
         setErrors(res);
         return errors;
       } else {

@@ -69,7 +69,6 @@ function LoginFormPage() {
       } catch (error) {
         setErrors(error);
         const errorMessage = error.message.split("(")[1];
-        console.log(errorMessage.slice(0, errorMessage.length - 2));
         setErrors({ error: errorMessage.slice(5, errorMessage.length - 2) });
         setTimeout(() => setErrors({}), 5000);
       }
