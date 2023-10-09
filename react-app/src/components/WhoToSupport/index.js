@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 import "./whoToSupport.css";
 import * as allUserActions from "../../store/allUsers";
@@ -32,7 +33,7 @@ const checkToggle = () => {
         <div class="user__container">
           {Object.values(supportUsers).map((user) => {
             return (
-              <div className="user">
+              <NavLink className="user" exact to={'/profile/' + user?.id} >
                 <img className="supporter-image" src={user?.imageUrl}></img>
                 <div className="user__content">
                   <div className="support-text">
@@ -43,7 +44,7 @@ const checkToggle = () => {
                   </div>
                   <button className="support">Support</button>
                 </div>
-              </div>
+              </NavLink>
             );
           })}
         </div>

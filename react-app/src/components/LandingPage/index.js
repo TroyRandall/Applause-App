@@ -10,7 +10,7 @@ import './landingPage.css';
 function LandingPage () {
     const currentUser = useSelector((state) => state.session.user);
 
-    if (currentUser) return <Redirect to={`/profile/${currentUser.id}`} />
+    if (currentUser) return <Redirect to={`/centerstage`} />
 
     return (
         <div id='landing-page-container'>

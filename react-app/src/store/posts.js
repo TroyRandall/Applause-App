@@ -25,7 +25,8 @@ const deleteApplausePost = (id) => ({
 
 
 export const getApplausePostsThunk = (id) => async(dispatch) => {
-    const response = await fetch(`/api/posts/${id}`)
+    if(id){
+        const response = await fetch(`/api/posts/${id}`)
 
     if(response.ok){
         const data = await response.json()
@@ -36,7 +37,18 @@ export const getApplausePostsThunk = (id) => async(dispatch) => {
         await dispatch(getApplausePosts(normalizedData));
         return null;
     }
-}
+}  else {
+    const response = await fetch('api/posts/')
+
+    if(response.ok){
+        const data = await response.json()
+        const normalizedData = {};
+        data.forEach((post) => {
+            normalizedData[post.id]=post;
+        })
+        await dispatch(getApplausePosts(normalizedData));
+        return null;
+}}}
 
 export const updateApplausePostThunk = (updatedPost) => async (dispatch) => {
     const {id, userId, username, postTitle, postContent, imageSrc, musicSrc } = updatedPost;

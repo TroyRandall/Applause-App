@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from './components/LandingPage';
 import ProfilePage from './components/ProfilePage';
+import CenterStage from "./components/CenterStage";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import VerifyEmail from "./components/Verify";
@@ -50,6 +51,10 @@ export const refList = [];
           <Route path='/profile/:id'>
           <ProfilePage />
           </Route>
+          <Route path='/centerstage' >
+            <CenterStage />
+          </Route>
+
         </Switch>
       )}
     </>
