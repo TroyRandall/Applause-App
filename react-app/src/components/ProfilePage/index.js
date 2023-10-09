@@ -159,13 +159,13 @@ function ProfilePage() {
           return res;
         } else {
           setToggle(false);
-          setPostTitle(null);
+          setPostTitle('');
           setImageUpload(false);
           setImageUrl(false);
           setMusicUrl(false);
           setMusicUpload(false);
-          setDescription(null);
-          setErrors(false);
+          setQuickPost('');
+          setErrors({});
           setImageToggle(false);
           setMusicToggle(false);
         }
