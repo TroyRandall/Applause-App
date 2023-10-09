@@ -50,7 +50,7 @@ function Post({ post }) {
       id={`post-container${post.id}`}
       className={playToggle ? "post-card-active" : "post-card"}
     >
-      {post?.imageSrc !== false && (post?.imageSrc !== "0" && post?.imageSrc !== 'false') ? (
+      {post?.imageSrc !== false && (post?.imageSrc !== "0" && (post?.imageSrc !== 'false' && post?.imageSrc !== null)) ? (
         <img
           className="post-card-image"
           src={post?.imageSrc}
@@ -68,7 +68,7 @@ function Post({ post }) {
           {post?.postContent}
         </p>
         <div
-          id={post?.musicSrc !== "0" && (post?.musicSrc !== false && post?.musicSrc !== 'false') ? "post-waveSurfer-container" : "hidden"}
+          id={post?.musicSrc !== "0" && (post?.musicSrc !== false && (post?.musicSrc !== 'false' && post?.musicSrc !== null)) ? "post-waveSurfer-container" : "hidden"}
         >
           <button
             onClick={playPause}
