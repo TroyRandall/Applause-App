@@ -9,7 +9,6 @@ post_routes = Blueprint('posts', __name__)
 @post_routes.route('/<int:id>', methods=['GET'])
 def get_posts(id):
     userPosts = Post.query.filter(Post.userId == id).all()
-    print(userPosts)
     return  [post.to_dict() for post in userPosts]
 
 @post_routes.route('/<int:id>', methods=['POST', 'PUT'])
