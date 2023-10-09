@@ -139,6 +139,40 @@ function ProfilePage() {
     });
   };
 
+  const handleQuickSubmit = (e) => {
+    e.preventDefault();
+    let postContent = quickPost;
+    let userId = currentUser?.id;
+    let username = currentUser?.username
+    if (postContent === null || postContent?.length < 1){
+      let newErrors = {}
+      newErrors.quickPost = 'You Must Enter Some Text To Create a Post'
+      setErrors(newErrors);
+      return null
+    }
+    else {
+      let post = { userId, username, postContent };
+      dispatch(postActions.createApplausePostThunk(post)).then((res) => {
+        if (res !== null) {
+          setErrors(res);
+          return res;
+        } else {
+          setToggle(false);
+          setPostTitle(null);
+          setImageUpload(false);
+          setImageUrl(false);
+          setMusicUrl(false);
+          setMusicUpload(false);
+          setDescription(null);
+          setErrors(false);
+          setImageToggle(false);
+          setMusicToggle(false);
+        }
+      });
+    }
+  }
+
+
   const handleSubmit = (e, quickPost1) => {
     e.preventDefault();
     if (quickPost1) {
@@ -152,13 +186,13 @@ function ProfilePage() {
             return res;
           } else {
             setToggle(false);
-            setPostTitle(null);
+            setPostTitle('');
             setImageUpload(false);
             setImageUrl(false);
             setMusicUrl(false);
             setMusicUpload(false);
-            setDescription(null);
-            setErrors(false);
+            setQuickPost('');
+            setErrors({});
             setImageToggle(false);
             setMusicToggle(false);
           }
@@ -434,7 +468,11 @@ function ProfilePage() {
             {" "}
             <h2 id="profile-page-full-name">{`${currentProfile?.firstName} ${currentProfile?.lastName}`}</h2>
             <h4 id="profile-page-username">{currentProfile?.username}</h4>
-            <div class="post-card-create">
+            {currentUser ?
+            <form class="post-card-create" onSubmit={handleQuickSubmit} >
+              <div className='error-post-quickPost'>
+              <span className={errors?.quickPost ? "error-tooltip-quickPost" : 'hidden'}>{errors?.quickPost}</span>
+              </div>
               <textarea
                 placeholder="What's keeping you busy?"
                 type="text"
@@ -442,13 +480,13 @@ function ProfilePage() {
                 onChange={(e) => setQuickPost(e.target.value)}
               ></textarea>
               <hr />
-              <button class="post" ref={quickRef} onCLick={handleSubmit}>
+              <button class="post" type='submit' ref={quickRef} onCLick={handleQuickSubmit}>
                 Create Post
               </button>
               <button class="upload" onClick={toggleModal}>
                 Upload
               </button>
-            </div>
+            </form>: null}
             {checkModal()}
           </div>
           <div class="stats shadow gradient">
