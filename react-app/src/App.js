@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -17,7 +17,9 @@ export const refList = [];
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser ]=useState(false)
+  const currentUser = useSelector((state) => state.session.user)
   useEffect(() => {
+    console.log(currentUser)
     if (user) {
       dispatch(authenticate(user?.email)).then(() => setTimeout(setIsLoaded(true), 2000));
     }else {
@@ -33,7 +35,7 @@ export const refList = [];
   return isLoaded && (
     <>
       <Navigation isLoaded={isLoaded} />
-      <VerifyEmail />
+      {currentUser ? <VerifyEmail /> : null}
       {isLoaded && (
         <Switch>
           <Route exact path='/'>

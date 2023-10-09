@@ -29,14 +29,14 @@ function Navigation({ isLoaded }) {
                   id="nav-logo"
                 />
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 exact
                 to="/spotlight"
                 id="nav-spotlight"
                 style={{ textDecoration: "none" }}
               >
                 <h3>Spotlight</h3>
-              </NavLink>
+              </NavLink> */}
             </div>
           </div>
           <NavLink exact to="/" className="nav-flex-items" id="nav-title-link">
