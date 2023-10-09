@@ -50,7 +50,7 @@ function Post({ post }) {
       id={`post-container${post.id}`}
       className={playToggle ? "post-card-active" : "post-card"}
     >
-      {post?.imageSrc !== null && (post?.imageSrc !== "0" && post?.imageSrc !== false) ? (
+      {post?.imageSrc !== false && (post?.imageSrc !== "0" && post?.imageSrc !== undefined) ? (
         <img
           className="post-card-image"
           src={post?.imageSrc}
