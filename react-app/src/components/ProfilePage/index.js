@@ -101,7 +101,8 @@ function ProfilePage() {
     errors
   ]);
 
-  const toggleModal = () => {
+  const toggleModal = (e) => {
+    e.preventDefault();
     setToggle(true);
   };
 
