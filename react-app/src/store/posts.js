@@ -34,6 +34,7 @@ export const getApplausePostsThunk = (id) => async(dispatch) => {
         data.forEach((post) => {
             normalizedData[post.id]=post;
         })
+        console.log(normalizedData)
         await dispatch(getApplausePosts(normalizedData));
         return null;
     }
@@ -46,6 +47,7 @@ export const getApplausePostsThunk = (id) => async(dispatch) => {
         data.forEach((post) => {
             normalizedData[post.id]=post;
         })
+        console.log(normalizedData)
         await dispatch(getApplausePosts(normalizedData));
         return null;
 }}}
@@ -138,7 +140,8 @@ export default function postsReducer(state=initialState, action) {
     let newState;
     switch(action.type) {
         case GET_APPLAUSE_POST:
-            newState=Object.assign(state, action.payload);
+            newState={...state}
+            newState= {...action.payload}
             return newState;
         case CREATE_APPLAUSE_POST:
             newState = Object.assign({}, state)
