@@ -79,7 +79,7 @@ function CommentCard({ comment, postId }) {
       <div className="comment-details">
         <div className="comment-user">{comment?.username}</div>
         <div className="comment-date">{comment?.created_at.slice(0, 12)}</div>
-        {currentUser?.id === comment?.id ? (
+        {currentUser?.id === comment?.userId ? (
           <div className="edit-delete-comment">
             <button
               className="edit-button"

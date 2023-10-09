@@ -195,6 +195,8 @@ function ProfilePage() {
             setErrors({});
             setImageToggle(false);
             setMusicToggle(false);
+            waveformRef?.current.destroy()
+            waveformRef.current = null
           }
         });
       }
@@ -377,8 +379,11 @@ function ProfilePage() {
                         accept="audio/*"
                         type="file"
                         onChange={(e) => [
+                          waveformRef?.current.destroy(),
+                          waveformRef.current = null,
                           setMusicUpload(e.target.files[0]),
                           setMusicToggle(true),
+
                         ]}
                       />
                       <span class={errors?.musicUrl ? "error-tooltip" : 'hidden'}id="error-music">
