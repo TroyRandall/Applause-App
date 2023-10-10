@@ -376,3 +376,19 @@ input:focus :after{
     background: linear-gradient(320deg, rgb(255, 67, 67), rgb(255, 44, 44));
     color: #ffffff;
   }
+
+  #demo-login {
+    color: blue;
+    padding: 4px;
+  }
+
+  #demo-login:hover {
+    cursor: pointer;
+  }
+
+  #demo-login-container {
+    display: flex;
+    align-items: center;
+    margin-left: 55px;
+    height: 10px;
+  }

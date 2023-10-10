@@ -50,6 +50,12 @@ function LoginFormPage() {
 
   if (sessionUser) return <Redirect to="/" />;
 
+  const demoLogin = async() => {
+    const email='demo@aa.io';
+    const password='password';
+    const data = await signInWithEmailAndPassword(auth, email, password);
+    dispatch(authenticate(data.user.email));
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
@@ -284,6 +290,10 @@ function LoginFormPage() {
                 <span>Log In</span>
               </button>
             </div>
+            <div id='demo-login-container'>
+            <p>log in as </p>
+            <p id='demo-login' onClick={demoLogin}> Demo User</p>
+           <p> Instead</p></div>
             <hr id="log-in-line-break" />
             <div class="mission-statement-log-in">
               <p class="statement-text-log-in">

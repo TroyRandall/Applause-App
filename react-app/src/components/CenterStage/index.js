@@ -54,7 +54,9 @@ function CenterStage() {
                   </div>
                 </div>
               ) : (
+                <div className='post-container'>
                 <Post post={post} key={post.id} />
+                </div>
               );
             }
           })}
