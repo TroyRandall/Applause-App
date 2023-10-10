@@ -508,7 +508,7 @@ function ProfilePage() {
             <WhoToSupport />
           </div>
           <div>
-            {Object.values(allPosts)?.length > 1 ? (
+            {Object.values(allPosts)?.length > 0 ? (
               <div id="profile-page-posts-container">
                 {Object.values(allPosts)
                   .reverse()
