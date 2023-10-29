@@ -28,6 +28,9 @@ def upgrade():
     sa.Column('aboutMe', sa.String(length=255), nullable=False),
     sa.Column('role', sa.String(), nullable=True),
     sa.Column('imageUrl', sa.String(), nullable=True),
+    sa.Column('FBlink', sa.String(), nullable=True),
+    sa.Column('instaLink', sa.String(), nullable=True),
+    sa.Column('GHLink', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
