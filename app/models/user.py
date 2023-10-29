@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
@@ -18,10 +18,13 @@ class User(db.Model, UserMixin):
     aboutMe = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(), default='Fan')
     imageUrl = db.Column(db.String(), nullable=True)
+    FBlink = db.Column(db.String(), nullable=True)
+    InstaLink = db.Column(db.String(), nullable=True)
+    GHLink = db.Column(db.String(), nullable = True)
 
     post=db.relationship('Post', back_populates='user', cascade="all, delete-orphan")
     comment = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
-
+    userPhoto = db.relationship('UserPhoto', back_populates='user', cascade='all, delete-orphan')
     @property
     def password(self):
         return self.hashed_password
@@ -42,5 +45,8 @@ class User(db.Model, UserMixin):
             'lastName': self.lastName,
             'aboutMe': self.aboutMe,
             'role': self.role,
-            'imageUrl': self.imageUrl
+            'imageUrl': self.imageUrl,
+            'fb': self.FBlink,
+            'insta': self.InstaLink,
+            'github': self.GHLink
         }

@@ -12,6 +12,7 @@ import { v4 } from "uuid";
 import MusicPlayer from "./musicPlayer";
 import UpdatePost from "../UpdatePost";
 import DeletePost from "../DeletePost";
+import Gallery from "../gallery";
 import Post from "../Posts";
 import * as postActions from "../../store/posts";
 import * as userActions from "../../store/users";
@@ -98,7 +99,7 @@ function ProfilePage() {
     musicToggle,
     currentUser,
     description,
-    errors
+    errors,
   ]);
 
   const toggleModal = (e) => {
@@ -144,14 +145,14 @@ function ProfilePage() {
     e.preventDefault();
     let postContent = quickPost;
     let userId = currentUser?.id;
-    let username = currentUser?.username
-    if (postContent === null || postContent?.length < 1){
-      let newErrors = {}
-      newErrors.quickPost = 'You Must Enter Some Text To Create a Post'
+    let username = currentUser?.username;
+    if (postContent === null || postContent?.length < 1) {
+      let newErrors = {};
+      newErrors.quickPost = "You Must Enter Some Text To Create a Post";
       setErrors(newErrors);
-      return null
-    }
-    else {
+      setTimeout(() => setErrors({}), 5000);
+      return null;
+    } else {
       let post = { userId, username, postContent };
       dispatch(postActions.createApplausePostThunk(post)).then((res) => {
         if (res !== null) {
@@ -159,20 +160,19 @@ function ProfilePage() {
           return res;
         } else {
           setToggle(false);
-          setPostTitle('');
+          setPostTitle("");
           setImageUpload(false);
           setImageUrl(false);
           setMusicUrl(false);
           setMusicUpload(false);
-          setQuickPost('');
+          setQuickPost("");
           setErrors({});
           setImageToggle(false);
           setMusicToggle(false);
         }
       });
     }
-  }
-
+  };
 
   const handleSubmit = (e, quickPost1) => {
     e.preventDefault();
@@ -187,17 +187,17 @@ function ProfilePage() {
             return res;
           } else {
             setToggle(false);
-            setPostTitle('');
+            setPostTitle("");
             setImageUpload(false);
             setImageUrl(false);
             setMusicUrl(false);
             setMusicUpload(false);
-            setQuickPost('');
+            setQuickPost("");
             setErrors({});
             setImageToggle(false);
             setMusicToggle(false);
-            waveformRef?.current.destroy()
-            waveformRef.current = null
+            waveformRef?.current.destroy();
+            waveformRef.current = null;
           }
         });
       }
@@ -237,12 +237,12 @@ function ProfilePage() {
             return res;
           } else {
             setToggle(false);
-            setPostTitle('');
+            setPostTitle("");
             setImageUpload(false);
             setImageUrl(false);
             setMusicUrl(false);
             setMusicUpload(false);
-            setDescription('');
+            setDescription("");
             setErrors({});
             setImageToggle(false);
             setMusicToggle(false);
@@ -255,12 +255,12 @@ function ProfilePage() {
   const resetForm = (e) => {
     if (overlayRef.current === e.target || createPostRef.current === e.target) {
       setToggle(false);
-      setPostTitle('');
+      setPostTitle("");
       setImageUpload(false);
       setImageUrl(false);
       setMusicUrl(false);
       setMusicUpload(false);
-      setDescription('');
+      setDescription("");
       setErrors({});
       setImageToggle(false);
       setMusicToggle(false);
@@ -367,7 +367,13 @@ function ProfilePage() {
                         placeholder="Please Enter Some Details About Your Post..."
                         id="post-description"
                       />{" "}
-                      <span className={errors?.postContent ? "error-tooltip" : 'hidden'}>{errors?.postContent}</span>
+                      <span
+                        className={
+                          errors?.postContent ? "error-tooltip" : "hidden"
+                        }
+                      >
+                        {errors?.postContent}
+                      </span>
                     </div>
                   </div>
 
@@ -380,14 +386,16 @@ function ProfilePage() {
                         accept="audio/*"
                         type="file"
                         onChange={(e) => [
-                          waveformRef?.current.destroy(),
-                          waveformRef.current = null,
+                          waveformRef?.current?.destroy(),
+                          (waveformRef.current = null),
                           setMusicUpload(e.target.files[0]),
                           setMusicToggle(true),
-
                         ]}
                       />
-                      <span class={errors?.musicUrl ? "error-tooltip" : 'hidden'}id="error-music">
+                      <span
+                        class={errors?.musicUrl ? "error-tooltip" : "hidden"}
+                        id="error-music"
+                      >
                         {errors?.musicUrl}
                       </span>
                     </div>
@@ -411,7 +419,10 @@ function ProfilePage() {
                         ]}
                       />
                     </label>
-                    <span class={errors?.imageUrl ? "error-tooltip" : 'hidden'} id="error-image">
+                    <span
+                      class={errors?.imageUrl ? "error-tooltip" : "hidden"}
+                      id="error-image"
+                    >
                       {errors?.imageUrl}
                     </span>
                   </div>
@@ -446,7 +457,7 @@ function ProfilePage() {
                     class="profile-image"
                   />
                 </div>
-                <div class="name">{currentProfile?.role}</div>
+                {/* <div class="name">{currentProfile?.role}</div> */}
               </div>
               <div class="flip-card-back">
                 <div class="Description">
@@ -473,26 +484,40 @@ function ProfilePage() {
           <div id="profile-page-user-info">
             {" "}
             <h2 id="profile-page-full-name">{`${currentProfile?.firstName} ${currentProfile?.lastName}`}</h2>
-            <h4 id="profile-page-username">{currentProfile?.username}</h4>
-            {currentUser ?
-            <form class="post-card-create" onSubmit={handleQuickSubmit} >
-              <div className='error-post-quickPost'>
-              <span className={errors?.quickPost ? "error-tooltip-quickPost" : 'hidden'}>{errors?.quickPost}</span>
-              </div>
-              <textarea
-                placeholder="What's keeping you busy?"
-                type="text"
-                value={quickPost}
-                onChange={(e) => setQuickPost(e.target.value)}
-              ></textarea>
-              <hr />
-              <button class="post" type='submit' ref={quickRef} onCLick={handleQuickSubmit}>
-                Create Post
-              </button>
-              <button class="upload" onClick={toggleModal}>
-                Upload
-              </button>
-            </form>: null}
+            <h4 id="profile-page-username">@{currentProfile?.username}</h4>
+            {currentUser ? (
+              <form class="post-card-redo" onSubmit={handleQuickSubmit}>
+                <div className="error-post-quickPost">
+                  <span
+                    className={
+                      errors?.quickPost ? "error-tooltip-quickPost" : "hidden"
+                    }
+                  >
+                    {errors?.quickPost}
+                  </span>
+                </div>
+                <textarea
+                  className="textarea"
+                  placeholder="What's keeping you busy?"
+                  type="text"
+                  value={quickPost}
+                  onChange={(e) => setQuickPost(e.target.value)}
+                ></textarea>
+                <div className="buttons">
+                  <button
+                    className="create"
+                    type="submit"
+                    ref={quickRef}
+                    onCLick={handleQuickSubmit}
+                  >
+                    Create Post
+                  </button>
+                  <button class="upload" onClick={toggleModal}>
+                    Upload
+                  </button>
+                </div>
+              </form>
+            ) : null}
             {checkModal()}
           </div>
           <div class="stats shadow gradient">
@@ -504,9 +529,7 @@ function ProfilePage() {
           </div>
         </div>{" "}
         <div id="profile-content-container">
-          <div id="supporters-container">
-            <WhoToSupport />
-          </div>
+          <Gallery userId={id} />
           <div>
             {Object.values(allPosts)?.length > 0 ? (
               <div id="profile-page-posts-container">
@@ -542,6 +565,9 @@ function ProfilePage() {
                 There Are No Posts To Show From This User...
               </h3>
             )}
+          </div>{" "}
+          <div id="supporters-container">
+            <WhoToSupport />
           </div>
         </div>
       </div>

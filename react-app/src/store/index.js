@@ -5,6 +5,7 @@ import postsReducer from './posts'
 import usersInfoReducer from './users';
 import allUsersReducer from './allUsers';
 import commentsReducer from './comments';
+import photoReducer from './userPhotos';
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ posts: postsReducer,
 users: usersInfoReducer,
 allUsers: allUsersReducer,
 comments: commentsReducer,
+photos: photoReducer,
 });
 
 
