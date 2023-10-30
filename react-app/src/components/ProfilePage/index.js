@@ -529,7 +529,7 @@ function ProfilePage() {
           </div>
         </div>{" "}
         <div id="profile-content-container">
-          <Gallery userId={id} />
+          <Gallery userId={id} currentUser={currentUser} />
           <div>
             {Object.values(allPosts)?.length > 0 ? (
               <div id="profile-page-posts-container">

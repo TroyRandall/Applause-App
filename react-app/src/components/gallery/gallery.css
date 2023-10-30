@@ -3,7 +3,9 @@
     border-radius: 10px;
     box-sizing: border-box;
     padding: 20px;
+    min-width: 350px;
     max-width: 400px;
+    height: 20%;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   }
 
@@ -24,6 +26,14 @@
     grid-gap: 10px;
   }
 
+  .gallery-NA {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+  }
+
   .gallery img {
     width: 100px;
     height: 100px;
@@ -38,4 +48,24 @@
     color: blue;
     margin-top: 20px;
     text-decoration: none;
+  }
+
+  img.image-not-available{
+    width: 250px;
+    margin: auto;
+    grid-column: 1/4;
+    opacity: 0.4;
+  }
+
+  #NA{
+    grid-column: 1/4;
+  }
+
+  #user-images-NA {
+    font-size: 17px;
+    color: #919191;
+    font-weight: 800;
+    /* padding: 10px; */
+    position: relative;
+    /* top: -220px; */
   }

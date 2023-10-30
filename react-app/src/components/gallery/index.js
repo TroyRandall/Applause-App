@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import * as photoActions from "../../store/userPhotos";
 import GalleryImage from "./galleryImage";
-import './gallery.css'
+import "./gallery.css";
 
-function Gallery({ userId }) {
+function Gallery({ userId, currentUser }) {
   const [count, setCount] = useState(0);
   const [galleryToggle, setGalleryToggle] = useState(false);
   const dispatch = useDispatch();
   const photos = useSelector((state) => state.photos[userId]);
+
 
   useEffect(() => {
     const loadPhotos = async () => {
@@ -26,7 +27,7 @@ function Gallery({ userId }) {
   const cancelGallery = (e) => {
     e.preventDefault();
     setGalleryToggle(false);
-  }
+  };
   const checkGalleryToggle = () => {
     if (galleryToggle) {
       return (
@@ -39,7 +40,10 @@ function Gallery({ userId }) {
                 Photos. Click On Any Image To See It In Full Size.
               </p>
             </div>
-            <div className="gallery-images-container" onClick={(e) => e.preventDefault()}>
+            <div
+              id={photos ? "images" : "NA"}
+              onClick={(e) => e.preventDefault()}
+            >
               {photos ? (
                 Object.values(photos).map((photo) => {
                   return (
@@ -69,7 +73,7 @@ function Gallery({ userId }) {
         <h1>Photo Gallery</h1>
       </div>
       <div class="card-body">
-        <div class="gallery">
+        <div class={photos ? "gallery" : "gallery-NA"}>
           {photos ? (
             Object.values(photos).map((photo) => {
               if (count <= 6) {
@@ -94,13 +98,21 @@ function Gallery({ userId }) {
             </div>
           )}
         </div>
-        <a class="see-all-photos" href="#" onClick={handleGallery}>
-          See all photos...
-        </a>
+        {photos ? (
+          Object.values(photos).length > 6 ? (
+            <a class="see-all-photos" href="#" onClick={handleGallery}>
+              See all photos...
+            </a>
+          ) : null
+        ) : (currentUser?.id === +userId ? null :
+          <p id="user-images-NA">
+            This User Has Not Uploaded Any Photos Yet...
+          </p>
+        )}
       </div>
       {checkGalleryToggle()}
     </div>
   );
 }
 
-export default Gallery
+export default Gallery;
