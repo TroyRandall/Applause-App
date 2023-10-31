@@ -12,8 +12,6 @@ function Post({ post }) {
   const [playToggle, setPlayToggle] = useState(false);
 
   useEffect(() => {
-    console.log(post)
-    console.log(post?.id)
     if (containerRefPost?.current && waveformRefPost?.current === null)
       waveformRefPost.current = WaveSurfer.create({
         container: containerRefPost.current,

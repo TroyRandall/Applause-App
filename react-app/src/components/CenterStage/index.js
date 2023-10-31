@@ -16,7 +16,6 @@ function CenterStage() {
   const allPosts = useSelector((state) => state.posts);
 
   useEffect(() => {
-    console.log(allPosts)
     const loadData = async () => {
       await dispatch(allUserActions.getAllUsersThunk());
       await dispatch(postActions.getApplausePostsThunk()).then(() =>

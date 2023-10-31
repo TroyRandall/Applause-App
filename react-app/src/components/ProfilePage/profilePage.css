@@ -555,8 +555,7 @@ button[type="submit"]:hover {
   background: linear-gradient(135deg, #007bff, #00bfff, #ffffff);
   height: 50%;
   position: relative;
-  top: 5vh;
-  right: 15vw;
+  top: 25px;
 }
 
 .stat {
@@ -690,7 +689,6 @@ hr {
   padding: 0px;
   width: 25vw;
   position: relative;
-  right: 25vw;
   font-family: monospace;
 }
 

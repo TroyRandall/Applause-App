@@ -34,7 +34,6 @@ export const getApplausePostsThunk = (id) => async(dispatch) => {
         data.forEach((post) => {
             normalizedData[post.id]=post;
         })
-        console.log(normalizedData)
         await dispatch(getApplausePosts(normalizedData));
         return null;
     }
@@ -47,7 +46,6 @@ export const getApplausePostsThunk = (id) => async(dispatch) => {
         data.forEach((post) => {
             normalizedData[post.id]=post;
         })
-        console.log(normalizedData)
         await dispatch(getApplausePosts(normalizedData));
         return null;
 }}}

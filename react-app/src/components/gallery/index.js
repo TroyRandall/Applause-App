@@ -4,24 +4,40 @@ import { useDispatch, useSelector } from "react-redux";
 import * as photoActions from "../../store/userPhotos";
 import GalleryImage from "./galleryImage";
 import "./gallery.css";
+import AddPhoto from "../uploadPhoto";
 
 function Gallery({ userId, currentUser }) {
   const [count, setCount] = useState(0);
   const [galleryToggle, setGalleryToggle] = useState(false);
+  const [addToggle, setAddToggle] = useState(false);
   const dispatch = useDispatch();
-  const photos = useSelector((state) => state.photos[userId]);
-
+  const photos = useSelector((state) => state.photos);
 
   useEffect(() => {
     const loadPhotos = async () => {
       await dispatch(photoActions.getPhotosByUserThunk(userId));
     };
     loadPhotos();
-  }, []);
+    if (addToggle) {
+      const cancel = document.getElementById("cancelButton");
+      cancel.addEventListener("click", () => {
+        setAddToggle(false);
+      });
+      return () =>
+        cancel.removeEventListener("click", () => {
+          setAddToggle(false);
+        });
+    }
+    console.log(photos);
+  }, [dispatch, addToggle]);
 
   const handleGallery = (e) => {
     e.preventDefault();
     setGalleryToggle(true);
+  };
+
+  const togglePhoto = () => {
+    setAddToggle(true);
   };
 
   const cancelGallery = (e) => {
@@ -46,7 +62,7 @@ function Gallery({ userId, currentUser }) {
             >
               {photos ? (
                 Object.values(photos).map((photo) => {
-                  return (
+                   return (
                     <GalleryImage
                       photoUrl={photo.photoUrl}
                       photoId={photo.id}
@@ -67,17 +83,28 @@ function Gallery({ userId, currentUser }) {
     }
   };
 
-  return (
+  return addToggle ? (
     <div class="photo-gallery-card">
       <div class="card-header">
         <h1>Photo Gallery</h1>
       </div>
+      <AddPhoto userId={userId} />
+    </div>
+  ) : (
+    <div class="photo-gallery-card">
+      <div class="card-header">
+        <h1>Photo Gallery</h1>
+      </div>
+
       <div class="card-body">
         <div class={photos ? "gallery" : "gallery-NA"}>
-          {photos ? (
+          {Object.values(photos)[0] !== null ? (
+            setCount(0),
             Object.values(photos).map((photo) => {
+              console.log(photos);
               if (count <= 6) {
                 setCount(count + 1);
+                console.log(photo);
                 return (
                   <img
                     src={photo.photoUrl}
@@ -100,15 +127,28 @@ function Gallery({ userId, currentUser }) {
         </div>
         {photos ? (
           Object.values(photos).length > 6 ? (
-            <a class="see-all-photos" href="#" onClick={handleGallery}>
-              See all photos...
-            </a>
+            addToggle ? null : (
+              <a class="see-all-photos" href="#" onClick={handleGallery}>
+                See all photos...
+              </a>
+            )
           ) : null
-        ) : (currentUser?.id === +userId ? null :
+        ) : currentUser?.id === +userId ? (
+          <button onClick={togglePhoto} className="uploadPhoto">
+            Upload
+          </button>
+        ) : (
           <p id="user-images-NA">
             This User Has Not Uploaded Any Photos Yet...
           </p>
         )}
+        {currentUser?.id === +userId && photos ? (
+          Object.values(photos).length > 6 ? (
+            <button onClick={togglePhoto} className="uploadPhoto">
+              Upload
+            </button>
+          ) : null
+        ) : null}
       </div>
       {checkGalleryToggle()}
     </div>

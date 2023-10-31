@@ -89,6 +89,9 @@ function ProfilePage() {
           waveformRef.current.playPause();
         });
     }
+
+
+
   }, [
     imageUpload,
     musicUpload,

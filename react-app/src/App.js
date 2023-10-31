@@ -20,7 +20,6 @@ export const refList = [];
   const [user, setUser ]=useState(false)
   const currentUser = useSelector((state) => state.session.user)
   useEffect(() => {
-    console.log(currentUser)
     if (user) {
       dispatch(authenticate(user?.email)).then(() => setTimeout(setIsLoaded(true), 2000));
     }else {
