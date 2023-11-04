@@ -341,6 +341,7 @@ input:focus :after{
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 1px solid red;
   }
 
   #error-backend-log-in {
@@ -357,10 +358,13 @@ input:focus :after{
     height: 7px;
     width: 7px;
     background: #ffffff;
-    bottom: -3px;
+    bottom: -5px;
     left: 50%;
     transform: translate(-50%) rotate(45deg);
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-top: none;
+    border-bottom: 1px solid red;
+    border-right: 1px solid red;
   }
 
   .errors-log-in .error-tooltip-log-in {
@@ -373,8 +377,8 @@ input:focus :after{
 
   .errors-log-in .error-tooltip-log-in,
   .errors-log-in .error-tooltip-log-in::before {
-    background: linear-gradient(320deg, rgb(255, 67, 67), rgb(255, 44, 44));
-    color: #ffffff;
+    color: red;
+    background: #ffffff;
   }
 
   #demo-login {

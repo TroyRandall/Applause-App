@@ -41,7 +41,6 @@ def userProfilePhoto(id):
 def userCoverPhoto(id):
     currentUser = User.query.get(id)
     url = request.get_json()['url']
-    print(currentUser.coverphoto)
     currentUser.coverphoto = url
     db.session.commit()
     return currentUser.to_dict()

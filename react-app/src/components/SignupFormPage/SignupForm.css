@@ -387,19 +387,24 @@ input[type="text"].input_field-sign-up, input[type='email'].input_field-sign-up,
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 1px solid red;
   }
 
   .error-tooltip-sign-up::before {
+    z-index: 0;
     position: absolute;
     z-index: 0;
     content: "";
     height: 7px;
     width: 7px;
     background: #ffffff;
-    bottom: -3px;
+    bottom: -5px;
     left: 50%;
     transform: translate(-50%) rotate(45deg);
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-top: none;
+    border-bottom: 1px solid red;
+    border-right: 1px solid red;
   }
 
   .errors-sign-up .error-tooltip-sign-up {
@@ -412,8 +417,9 @@ input[type="text"].input_field-sign-up, input[type='email'].input_field-sign-up,
 
   .errors-sign-up .error-tooltip-sign-up,
   .errors-sign-up .error-tooltip-sign-up::before {
-    background: linear-gradient(320deg, rgb(255, 67, 67), rgb(255, 44, 44));
-    color: #ffffff;
+    color: red;
+    background: #ffffff;
+    z-index: 100;
   }
 
   #error-tooltip-about-me {

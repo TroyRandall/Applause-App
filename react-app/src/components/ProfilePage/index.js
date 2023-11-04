@@ -54,8 +54,6 @@ function ProfilePage() {
   const currentProfile = useSelector((state) => state.users.info);
 
   useEffect(() => {
-    console.log(currentUser);
-    console.log('profile')
     const loadData = async () => {
       await dispatch(allUserActions.getAllUsersThunk());
       await dispatch(userActions.getUserByIdThunk(id));
