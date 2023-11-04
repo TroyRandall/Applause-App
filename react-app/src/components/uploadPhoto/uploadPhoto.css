@@ -116,10 +116,11 @@
 }
 
 .uploadPhoto {
-  margin-left: 50px;
-  width: 200px;
+  margin-left: 10%;
+  width: 80%;
   padding: 10px 20px;
   background-color: #084cdf;
+  border-top: 2px solid black;
   border: none;
   border-radius: 10px;
   color: #fff;

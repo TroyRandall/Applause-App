@@ -36,10 +36,6 @@ function AddPhoto({ userId }) {
       })
     })
     setUploading(false);
-    // const imageRef = ref(storage, `${id}/images/${imageUpload?.name + v4()}`);
-    // uploadBytes(imageRef, imageUpload).then((response) => [
-    //   getDownloadURL(response.ref),
-    // ]);
   };
 
 

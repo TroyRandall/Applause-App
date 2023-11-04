@@ -36,9 +36,28 @@
       integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
       crossorigin="anonymous"
     />
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+      function onSubmit(token) {
+        document.getElementById("demo-form").submit();
+      }
+    </script>
+    <!-- <button class="g-recaptcha"
+        data-sitekey="reCAPTCHA_site_key"
+        data-callback='onSubmit'
+        data-action='submit'>Submit</button> -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      <script src="https://www.google.com/recaptcha/enterprise.js?render=6Ld3ee4oAAAAAHUmPbV3E2uRanTs8GbyMj9XtsBV" async defer></script>
+      <script>
+        function onClick(e) {
+          e.preventDefault();
+          grecaptcha.enterprise.ready(async () => {
+            const token = await grecaptcha.enterprise.execute('6Ld3ee4oAAAAAHUmPbV3E2uRanTs8GbyMj9XtsBV', {action: 'LOGIN'});
+          });
+        }
+      </script>
   </head>
   <body>
     <div id="root"></div>

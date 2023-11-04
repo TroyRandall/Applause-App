@@ -33,10 +33,10 @@ def upgrade():
                existing_type=sa.INTEGER(),
                nullable=False)
 
-    with op.batch_alter_table('users', schema=None) as batch_op:
-        batch_op.add_column(sa.Column('FBlink', sa.String(), nullable=True))
-        batch_op.add_column(sa.Column('InstaLink', sa.String(), nullable=True))
-        batch_op.add_column(sa.Column('GHLink', sa.String(), nullable=True))
+    # with op.batch_alter_table('users', schema=None) as batch_op:
+    #     batch_op.add_column(sa.Column('FBlink', sa.String(), nullable=True))
+    #     batch_op.add_column(sa.Column('InstaLink', sa.String(), nullable=True))
+    #     batch_op.add_column(sa.Column('GHLink', sa.String(), nullable=True))
 
     # ### end Alembic commands ###
 

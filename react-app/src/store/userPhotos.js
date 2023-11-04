@@ -3,21 +3,17 @@ const CREATE_PHOTO_BY_USER = "photos/CREATE_PHOTO_BY_USER";
 const DELETE_PHOTO_BY_USER = "photos/DELETE_PHOTO_BY_USER";
 const UPDATE_PHOTO_BY_USER = "photos/UPDATE_PHOTO_BY_USER";
 
-const getPhotosByUser = (formattedData, id) => ({
+const getPhotosByUser = (formattedData) => ({
   type: GET_PHOTOS_BY_USER,
-  payload: {
-   formattedData: formattedData,
-    id: id,
-  }
+  payload: formattedData,
 });
 
-const createPhotoByUser = (data, userId) => (
-  console.log(data), {
+const createPhotoByUser = (data, userId) => ({
   type: CREATE_PHOTO_BY_USER,
   payload: {
     data: data,
     userid: userId,
-  }
+  },
 });
 
 const updatePhotoByUser = (data) => ({
@@ -35,12 +31,12 @@ export const getPhotosByUserThunk = (id) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     let formattedData = {};
     data.forEach((photo) => {
       formattedData[photo.id] = photo;
     });
-    dispatch(getPhotosByUser(formattedData, id));
+    console.log(formattedData);
+    dispatch(getPhotosByUser(formattedData));
     return null;
   } else {
     const data = await response.json();
@@ -51,14 +47,14 @@ export const getPhotosByUserThunk = (id) => async (dispatch) => {
 export const createPhotoByUserThunk = (userPhoto) => async (dispatch) => {
   let { userId, photoUrl, coverPhoto } = userPhoto;
   const response = await fetch(`/api/photos/${userId}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       userId,
       photoUrl,
-      coverPhoto: '0'
+      coverPhoto: "0",
     }),
   });
   if (response.ok) {
@@ -117,7 +113,7 @@ export default function photoReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PHOTOS_BY_USER:
       newState = { ...state };
-      newState = {...action.payload.formattedData}
+      newState = { ...action.payload };
       return newState;
     case CREATE_PHOTO_BY_USER:
       newState = { ...state };

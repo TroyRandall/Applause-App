@@ -5,15 +5,18 @@ import * as photoActions from "../../store/userPhotos";
 import GalleryImage from "./galleryImage";
 import "./gallery.css";
 import AddPhoto from "../uploadPhoto";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-function Gallery({ userId, currentUser }) {
-  const [count, setCount] = useState(0);
+function Gallery({ currentUser }) {
   const [galleryToggle, setGalleryToggle] = useState(false);
   const [addToggle, setAddToggle] = useState(false);
+  const { id } = useParams();
+  const userId = id;
   const dispatch = useDispatch();
   const photos = useSelector((state) => state.photos);
 
   useEffect(() => {
+    console.log(userId);
     const loadPhotos = async () => {
       await dispatch(photoActions.getPhotosByUserThunk(userId));
     };
@@ -21,15 +24,14 @@ function Gallery({ userId, currentUser }) {
     if (addToggle) {
       const cancel = document.getElementById("cancelButton");
       cancel.addEventListener("click", () => {
-        setAddToggle(false);
+        setAddToggle(!addToggle);
       });
       return () =>
         cancel.removeEventListener("click", () => {
-          setAddToggle(false);
+          setAddToggle(!addToggle);
         });
     }
-    console.log(photos);
-  }, [dispatch, addToggle]);
+  }, [dispatch, userId, addToggle]);
 
   const handleGallery = (e) => {
     e.preventDefault();
@@ -44,10 +46,24 @@ function Gallery({ userId, currentUser }) {
     e.preventDefault();
     setGalleryToggle(false);
   };
+
+  const formatPhotos = () => {
+    let idx = 0;
+    let newData = {};
+    if (photos) {
+      Object.values(photos).forEach((photo) => {
+        if (idx < 6) {
+          newData[photo?.id] = photo;
+          idx++;
+        }
+      });
+    }
+    return Object.values(newData);
+  };
   const checkGalleryToggle = () => {
     if (galleryToggle) {
       return (
-        <div className="overlay" onClick={cancelGallery}>
+        <div className="overlay" onClick={() => setGalleryToggle(false)}>
           <div className="gallery-card">
             <div className="gallery-header">
               <h3>All Photos</h3>
@@ -58,11 +74,10 @@ function Gallery({ userId, currentUser }) {
             </div>
             <div
               id={photos ? "images" : "NA"}
-              onClick={(e) => e.preventDefault()}
             >
               {photos ? (
                 Object.values(photos).map((photo) => {
-                   return (
+                  return (
                     <GalleryImage
                       photoUrl={photo.photoUrl}
                       photoId={photo.id}
@@ -98,21 +113,17 @@ function Gallery({ userId, currentUser }) {
 
       <div class="card-body">
         <div class={photos ? "gallery" : "gallery-NA"}>
-          {Object.values(photos)[0] !== null ? (
-            setCount(0),
-            Object.values(photos).map((photo) => {
-              console.log(photos);
-              if (count <= 6) {
-                setCount(count + 1);
-                console.log(photo);
-                return (
-                  <img
-                    src={photo.photoUrl}
-                    alt="A User Upload"
-                    className="image-preview"
-                  />
-                );
-              }
+          {photos ? (
+            formatPhotos().map((photo) => {
+              console.log(photo);
+              console.log("this in format");
+              return (
+                <img
+                  src={photo?.photoUrl}
+                  alt="A User Upload"
+                  className="image-preview"
+                />
+              );
             })
           ) : (
             <div>
@@ -126,7 +137,7 @@ function Gallery({ userId, currentUser }) {
           )}
         </div>
         {photos ? (
-          Object.values(photos).length > 6 ? (
+          Object.values(photos)?.length > 6 ? (
             addToggle ? null : (
               <a class="see-all-photos" href="#" onClick={handleGallery}>
                 See all photos...

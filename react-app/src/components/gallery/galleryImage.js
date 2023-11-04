@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./galleryImage.css";
 
 function GalleryImage({ photoUrl, photoId }) {
   const [fullscreenToggle, setFullscreenToggle] = useState(false);
@@ -6,30 +7,58 @@ function GalleryImage({ photoUrl, photoId }) {
   useEffect(() => {
     const cancelFullscreen = (e) => {
       e.preventDefault();
+      console.log(e.target);
       const image = document.getElementById(photoId);
       if (e.target !== image) {
         setFullscreenToggle(false);
       }
     };
     if (fullscreenToggle) {
-      document.addEventListener("click", cancelFullscreen);
+      const image = document.getElementById(photoId);
+      image.addEventListener("click", cancelFullscreen);
 
-      return () => document.removeEventListener("click", cancelFullscreen);
+      return () => image.removeEventListener("click", cancelFullscreen);
     }
   }, [fullscreenToggle]);
+
+  const checkFullscreen = () => {
+    if (fullscreenToggle) {
+      return (
+        <>
+          <div
+            className="overlay"
+            id='overlay-gallery'
+            onClick={(e) => [e.stopPropagation(), setFullscreenToggle(false)]}
+          >
+            <img
+              src={photoUrl}
+              className="fullscreen-image"
+              onClick={(e) => e.stopPropagation()}
+              id={photoId}
+              key={photoId}
+            ></img>
+          </div>
+        </>
+      );
+    }
+  };
   const toggleFullscreen = (e) => {
-    e.preventDefault();
+    e.stopPropagation();
+    console.log(e);
     setFullscreenToggle(true);
   };
   return (
-    <img
-      src={photoUrl}
-      className={"gallery-image"}
-      id={photoId}
-      key={photoId}
-      onClick={toggleFullscreen}
-    />
+    <>
+      <img
+        src={photoUrl}
+        className={"gallery-image"}
+        id={photoId}
+        key={photoId}
+        onClick={toggleFullscreen}
+      />
+      {checkFullscreen()}
+    </>
   );
 }
 
-export default GalleryImage
+export default GalleryImage;

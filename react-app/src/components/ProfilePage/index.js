@@ -52,7 +52,6 @@ function ProfilePage() {
   const allPosts = useSelector((state) => state.posts);
   const currentUser = useSelector((state) => state.session.user);
   const currentProfile = useSelector((state) => state.users.info);
-  const allUsers = useSelector((state) => state.allUsers.users);
 
   useEffect(() => {
     const loadData = async () => {
