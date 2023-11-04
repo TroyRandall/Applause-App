@@ -97,9 +97,8 @@
 }
 
 .comment:hover {
-  background: linear-gradient(to right, #00c3ff, #88f9ff, #fff);
+  background: rgb(194, 194, 194);
   background-size: 200% 100%;
-  animation: gradientHover 3s ease-in-out infinite;
 }
 
 @keyframes gradientHover {
