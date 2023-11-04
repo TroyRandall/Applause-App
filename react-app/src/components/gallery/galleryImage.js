@@ -49,7 +49,7 @@ function GalleryImage({ photoUrl, photoId, id }) {
               id={photoId}
               key={photoId}
             ></img>
-            {currentUser?.id === id ?
+            {currentUser?.id === +id ?
             <div className='buttons-container'>
                <button onClick ={handleProfilePhoto} id='updatePhoto'>Make Profile Photo</button>
                <button onClick ={handleCoverPhoto} id='updateCoverPhoto'>Make Cover Photo</button>
