@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./galleryImage.css";
 import * as userActions from '../../store/session'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function GalleryImage({ photoUrl, photoId, id }) {
   const [fullscreenToggle, setFullscreenToggle] = useState(false);
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.session.user)
 
   useEffect(() => {
     const cancelFullscreen = (e) => {
@@ -48,10 +49,11 @@ function GalleryImage({ photoUrl, photoId, id }) {
               id={photoId}
               key={photoId}
             ></img>
+            {currentUser?.id === id ?
             <div className='buttons-container'>
                <button onClick ={handleProfilePhoto} id='updatePhoto'>Make Profile Photo</button>
                <button onClick ={handleCoverPhoto} id='updateCoverPhoto'>Make Cover Photo</button>
-            </div>
+            </div> : null }
 
           </div>
         </>

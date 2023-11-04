@@ -48,8 +48,8 @@ function Navigation({ isLoaded }) {
             <div id="nav-div-2">
               {currentUser ? (
                 <>
-                  <NavLink exact to={profileURL}>
-                    <h3 style={{ textDecoration: "none" }}>Profile</h3>
+                  <NavLink exact to={profileURL} style={{ textDecoration: "none", color: "black" }}>
+                    <h3 style={{ textDecoration: "none", color: "black" }}>Profile</h3>
                   </NavLink>
                 </>
               ) : (
