@@ -456,7 +456,7 @@ function ProfilePage() {
                 <div class="profile-image">
                   <img
                     id="profile-page-user-image"
-                    src={currentProfile?.imageUrl}
+                    src={currentProfile?.imageUrl || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2Fl60Hf.png&f=1&nofb=1&ipt=24b003070097416ca083b345a80f57da6974e237777a49f5b8991284f9e08714&ipo=images'}
                     alt="a profile for an applause user account"
                     class="profile-image"
                   />
