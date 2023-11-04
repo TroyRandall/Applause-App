@@ -81,3 +81,18 @@
     width: 80%;
     margin-top: 10px;
   }
+
+  .gallery-card{
+    padding: 10px;
+    margin: auto;
+  }
+
+  #images {
+    width: 80%;
+    margin: auto;
+    overflow: scroll;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }

@@ -38,6 +38,7 @@ def upgrade():
                nullable=False)
 
     with op.batch_alter_table('users', schema=None) as batch_op:
+        batch_op.add_column(sa.Column('coverphoto', sa.String(), nullable=True))
         batch_op.add_column(sa.Column('FBlink', sa.String(), nullable=True))
         batch_op.add_column(sa.Column('InstaLink', sa.String(), nullable=True))
         batch_op.add_column(sa.Column('GHLink', sa.String(), nullable=True))

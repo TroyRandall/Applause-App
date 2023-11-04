@@ -72,9 +72,7 @@ function Gallery({ currentUser }) {
                 Photos. Click On Any Image To See It In Full Size.
               </p>
             </div>
-            <div
-              id={photos ? "images" : "NA"}
-            >
+            <div id={photos ? "images" : "NA"}>
               {photos ? (
                 Object.values(photos).map((photo) => {
                   return (
@@ -112,9 +110,16 @@ function Gallery({ currentUser }) {
       </div>
 
       <div class="card-body">
-        <div class={photos ? "gallery" : "gallery-NA"}>
-          {photos ? (
+        <div
+          class={
+            photos && Object.values(photos).length > 0
+              ? "gallery"
+              : "gallery-NA"
+          }
+        >
+          {photos && Object.values(photos).length > 0 ? (
             formatPhotos().map((photo) => {
+              console.log(photos);
               console.log(photo);
               console.log("this in format");
               return (

@@ -18,3 +18,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.gallery-header {
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 700;
+}

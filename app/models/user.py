@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     aboutMe = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(), default='Fan')
     imageUrl = db.Column(db.String(), nullable=True)
+    coverphoto = db.Column(db.String(), nullable=True)
     FBlink = db.Column(db.String(), nullable=True)
     InstaLink = db.Column(db.String(), nullable=True)
     GHLink = db.Column(db.String(), nullable = True)
