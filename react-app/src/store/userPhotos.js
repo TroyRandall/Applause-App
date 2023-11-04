@@ -35,7 +35,6 @@ export const getPhotosByUserThunk = (id) => async (dispatch) => {
     data.forEach((photo) => {
       formattedData[photo.id] = photo;
     });
-    console.log(formattedData);
     dispatch(getPhotosByUser(formattedData));
     return null;
   } else {

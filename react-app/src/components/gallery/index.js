@@ -15,23 +15,31 @@ function Gallery({ currentUser }) {
   const dispatch = useDispatch();
   const photos = useSelector((state) => state.photos);
 
+
   useEffect(() => {
-    console.log(userId);
     const loadPhotos = async () => {
       await dispatch(photoActions.getPhotosByUserThunk(userId));
     };
     loadPhotos();
     if (addToggle) {
       const cancel = document.getElementById("cancelButton");
+      const submit = document.getElementById('submitButton');
+      submit.addEventListener("click", () => {
+        setTimeout(() => setAddToggle(!addToggle), 500);
+      });
       cancel.addEventListener("click", () => {
         setAddToggle(!addToggle);
       });
-      return () =>
+      return () =>   {
+        submit.removeEventListener("click", () => {
+          setAddToggle(!addToggle);
+        });
         cancel.removeEventListener("click", () => {
           setAddToggle(!addToggle);
         });
+      }
     }
-  }, [dispatch, userId, addToggle]);
+  }, [dispatch, userId, addToggle, currentUser]);
 
   const handleGallery = (e) => {
     e.preventDefault();
@@ -79,6 +87,7 @@ function Gallery({ currentUser }) {
                     <GalleryImage
                       photoUrl={photo.photoUrl}
                       photoId={photo.id}
+                      key={photo.id}
                     />
                   );
                 })
@@ -119,14 +128,15 @@ function Gallery({ currentUser }) {
         >
           {photos && Object.values(photos).length > 0 ? (
             formatPhotos().map((photo) => {
-              console.log(photos);
-              console.log(photo);
-              console.log("this in format");
+              console.log(photos && Object.values(photos).length > 0)
+              console.log('this is currentUser')
+              console.log(userId);
               return (
                 <img
                   src={photo?.photoUrl}
                   alt="A User Upload"
                   className="image-preview"
+                  key={photo?.id}
                 />
               );
             })
@@ -141,14 +151,13 @@ function Gallery({ currentUser }) {
             </div>
           )}
         </div>
-        {photos ? (
-          Object.values(photos)?.length > 6 ? (
+        {photos && Object.values(photos).length > 1 ? (
             addToggle ? null : (
               <a class="see-all-photos" href="#" onClick={handleGallery}>
                 See all photos...
               </a>
-            )
-          ) : null
+
+          )
         ) : currentUser?.id === +userId ? (
           <button onClick={togglePhoto} className="uploadPhoto">
             Upload
@@ -158,12 +167,10 @@ function Gallery({ currentUser }) {
             This User Has Not Uploaded Any Photos Yet...
           </p>
         )}
-        {currentUser?.id === +userId && photos ? (
-          Object.values(photos).length > 6 ? (
+        {currentUser?.id === +userId && (photos && Object.values(photos).length > 1) ? (
             <button onClick={togglePhoto} className="uploadPhoto">
               Upload
             </button>
-          ) : null
         ) : null}
       </div>
       {checkGalleryToggle()}

@@ -49,12 +49,9 @@ function LoginFormPage() {
   if (sessionUser) return <Redirect to="/" />;
 
   const demoLogin = async() => {
-    console.log(process.env.REACT_APP_APIKEY)
     const email='demo@aa.io';
     const password='password';
     const data = await signInWithEmailAndPassword(auth, email, password);
-    console.log(data);
-
     dispatch(authenticate(data.user.email));
   }
   const handleSubmit = async (e) => {
@@ -71,15 +68,12 @@ function LoginFormPage() {
       return null;
     } else {
       try {
-        console.log(auth);
-        console.log('this is the end')
         const data = await signInWithEmailAndPassword(auth, email, password);
-        console.log(data);
+
 
         dispatch(authenticate(data.user.email));
 
       } catch (error) {
-        console.log(error);
         setErrors(error);
         const errorMessage = error.message.split("(")[1];
         setErrors({ error: errorMessage.slice(5, errorMessage.length - 2) });

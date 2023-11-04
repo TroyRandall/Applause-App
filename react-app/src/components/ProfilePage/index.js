@@ -54,6 +54,8 @@ function ProfilePage() {
   const currentProfile = useSelector((state) => state.users.info);
 
   useEffect(() => {
+    console.log(currentUser);
+    console.log('profile')
     const loadData = async () => {
       await dispatch(allUserActions.getAllUsersThunk());
       await dispatch(userActions.getUserByIdThunk(id));
@@ -531,7 +533,7 @@ function ProfilePage() {
           </div>
         </div>{" "}
         <div id="profile-content-container">
-          <Gallery userId={id} currentUser={currentUser} />
+          <Gallery currentUser={currentUser} key={currentUser}/>
           <div>
             {Object.values(allPosts)?.length > 0 ? (
               <div id="profile-page-posts-container">

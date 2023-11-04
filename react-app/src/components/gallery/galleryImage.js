@@ -7,7 +7,6 @@ function GalleryImage({ photoUrl, photoId }) {
   useEffect(() => {
     const cancelFullscreen = (e) => {
       e.preventDefault();
-      console.log(e.target);
       const image = document.getElementById(photoId);
       if (e.target !== image) {
         setFullscreenToggle(false);
@@ -19,7 +18,7 @@ function GalleryImage({ photoUrl, photoId }) {
 
       return () => image.removeEventListener("click", cancelFullscreen);
     }
-  }, [fullscreenToggle]);
+  }, [fullscreenToggle, photoId]);
 
   const checkFullscreen = () => {
     if (fullscreenToggle) {
@@ -44,7 +43,6 @@ function GalleryImage({ photoUrl, photoId }) {
   };
   const toggleFullscreen = (e) => {
     e.stopPropagation();
-    console.log(e);
     setFullscreenToggle(true);
   };
   return (

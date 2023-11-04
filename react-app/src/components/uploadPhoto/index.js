@@ -36,6 +36,7 @@ function AddPhoto({ userId }) {
       })
     })
     setUploading(false);
+    setPhotos([])
   };
 
 
@@ -70,7 +71,7 @@ function AddPhoto({ userId }) {
 
         <div class="button-container">
           <button class="cancel-button" id='cancelButton'>Cancel</button>
-          <button class="submit-button" onClick={handleAddPhoto}>
+          <button class="submit-button" id='submitButton' onClick={handleAddPhoto}>
             Submit
           </button>
         </div>
