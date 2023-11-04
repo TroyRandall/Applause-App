@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User
+from app.models import User, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -27,3 +27,21 @@ def userByEmail(email):
 
     currentUser=User.query.filter(User.email == email).all()
     return currentUser[0].to_dict()
+
+@user_routes.route('/profilephoto/<int:id>', methods=['POST'])
+def userProfilePhoto(id):
+    currentUser = User.query.get(id)
+    url = request.get_json()['url']
+    currentUser.imageUrl = url
+    db.session.commit()
+    return currentUser.to_dict()
+
+
+@user_routes.route('/coverphoto/<int:id>', methods=['POST'])
+def userCoverPhoto(id):
+    currentUser = User.query.get(id)
+    url = request.get_json()['url']
+    print(currentUser.coverphoto)
+    currentUser.coverphoto = url
+    db.session.commit()
+    return currentUser.to_dict()

@@ -1,28 +1,64 @@
 .fullscreen-image {
-    position: absolute;
-    width: 80vh;
-    aspect-ratio: auto;
+  position: absolute;
+  width: 80vh;
+  aspect-ratio: auto;
 }
 
 .gallery-image {
-    width: 200px;
-    height: 200px;
-    padding: 20px;
-    margin: auto;
-
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  margin: auto;
 }
 
 #overlay-gallery {
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-header {
-    color: white;
-    text-align: center;
-    padding: 5px;
-    font-size: 20px;
-    font-weight: 700;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#updatePhoto {
+  z-index: 1000;
+  position: relative;
+  padding: 10px 20px;
+  background-color: #084cdf;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  top: 35%;
+  right: -5%;
+}
+
+#updateCoverPhoto {
+    z-index: 1000;
+    position: relative;
+    padding: 10px 20px;
+    background-color: #084cdf;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+    top: 35%;
+    left: -5%;
+}
+
+.buttons-container {
+    position: relative;
+    top: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
 }

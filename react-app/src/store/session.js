@@ -45,7 +45,38 @@ export const authenticate = (email) => async (dispatch) => {
 }
 	}
 
+export const updatePhoto = (url, id) => async (dispatch) => {
+	const response = await fetch(`/api/users/profilephoto/${id}`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			url
+		})
+	})
 
+	if(response.ok){
+		const data = await response.json();
+		dispatch(setUser(data))
+	}
+}
+
+export const updateCoverPhoto = (url, id) => async (dispatch) => {
+	const response = await fetch(`/api/users/coverphoto/${id}`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			url
+		})
+	})
+	if(response.ok){
+		const data = await response.json();
+		dispatch(setUser(data))
+	}
+}
 export const login = (email, password) => async (dispatch) => {
 	const response = await fetch("/api/auth/login", {
 		method: "POST",

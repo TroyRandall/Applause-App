@@ -47,6 +47,7 @@ class User(db.Model, UserMixin):
             'aboutMe': self.aboutMe,
             'role': self.role,
             'imageUrl': self.imageUrl,
+            'coverphoto': self.coverphoto,
             'fb': self.FBlink,
             'insta': self.InstaLink,
             'github': self.GHLink

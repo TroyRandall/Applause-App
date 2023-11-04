@@ -25,7 +25,7 @@ function Gallery({ currentUser }) {
       const cancel = document.getElementById("cancelButton");
       const submit = document.getElementById('submitButton');
       submit.addEventListener("click", () => {
-        setTimeout(() => setAddToggle(!addToggle), 500);
+        setTimeout(() => setAddToggle(!addToggle), 1600);
       });
       cancel.addEventListener("click", () => {
         setAddToggle(!addToggle);
@@ -88,6 +88,7 @@ function Gallery({ currentUser }) {
                       photoUrl={photo.photoUrl}
                       photoId={photo.id}
                       key={photo.id}
+                      id={userId}
                     />
                   );
                 })
@@ -128,9 +129,6 @@ function Gallery({ currentUser }) {
         >
           {photos && Object.values(photos).length > 0 ? (
             formatPhotos().map((photo) => {
-              console.log(photos && Object.values(photos).length > 0)
-              console.log('this is currentUser')
-              console.log(userId);
               return (
                 <img
                   src={photo?.photoUrl}

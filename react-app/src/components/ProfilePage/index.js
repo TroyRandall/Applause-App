@@ -446,7 +446,7 @@ function ProfilePage() {
       <div id="profile-page-container">
         <img
           id="profile-page-cover-photo"
-          src={defaultCoverPhoto}
+          src={currentUser?.coverphoto || defaultCoverPhoto}
           alt="a crowd going crazy at a concert"
         />
         <div id="profile-page-first-row">
