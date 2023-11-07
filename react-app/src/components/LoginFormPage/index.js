@@ -60,6 +60,7 @@ function LoginFormPage() {
     if (email?.length < 1) newErrors.email = "An Email Is Required To Log In";
     if (password?.length < 1)
       newErrors.password = "A Password is Required To Log In";
+    if(password?.length < 8 ) newErrors.password = 'A Password Must Be At Minimum 8 Characters'
     if (password?.length > 40)
       newErrors.password = "Passwords Cannot Be Greater Than 40 Characters";setErrors(newErrors);
     if (Object.values(newErrors).length > 0) {
