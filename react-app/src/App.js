@@ -28,14 +28,18 @@ export const refList = [];
 
   }, [dispatch, user]);
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser)
+  onAuthStateChanged(auth, async (currentUser) => {
+    const user = await auth?.currentUser?.reload()
+    console.log(auth?.currentUser);
+    setUser(auth?.currentUser)
+    auth?.currentUser?.reload()
+
     // dispatch(authenticate(currentUser.email)).then(() => setIsLoaded(true));
   })
   return isLoaded && (
     <>
       <Navigation isLoaded={isLoaded} />
-      {currentUser ? <VerifyEmail /> : null}
+      {currentUser ? auth?.currentUser?.emailVerified ? null : <VerifyEmail /> : null}
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
