@@ -30,7 +30,6 @@ export const refList = [];
 
   onAuthStateChanged(auth, async (currentUser) => {
     const user = await auth?.currentUser?.reload()
-    console.log(auth?.currentUser);
     setUser(auth?.currentUser)
     auth?.currentUser?.reload()
 
