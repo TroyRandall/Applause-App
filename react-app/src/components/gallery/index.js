@@ -149,7 +149,7 @@ function Gallery({ currentUser }) {
             </div>
           )}
         </div>
-        {photos && Object.values(photos).length > 1 ? (
+        {photos && Object.values(photos).length > 0 ? (
             addToggle ? null : (
               <a class="see-all-photos" href="#" onClick={handleGallery}>
                 See all photos...
@@ -165,7 +165,7 @@ function Gallery({ currentUser }) {
             This User Has Not Uploaded Any Photos Yet...
           </p>
         )}
-        {currentUser?.id === +userId && (photos && Object.values(photos).length > 1) ? (
+        {currentUser?.id === +userId && (photos && Object.values(photos).length > 0) ? (
             <button onClick={togglePhoto} className="uploadPhoto">
               Upload
             </button>

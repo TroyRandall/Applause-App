@@ -21,9 +21,12 @@ const updatePhotoByUser = (data) => ({
   payload: data,
 });
 
-const deletePhotoByUser = (data) => ({
+const deletePhotoByUser = (userId, id) => ({
   type: DELETE_PHOTO_BY_USER,
-  payload: data,
+  payload:  {
+    userId: userId,
+    id: id
+  }
 });
 
 export const getPhotosByUserThunk = (id) => async (dispatch) => {
@@ -35,6 +38,7 @@ export const getPhotosByUserThunk = (id) => async (dispatch) => {
     data.forEach((photo) => {
       formattedData[photo.id] = photo;
     });
+    console.log(formattedData);
     dispatch(getPhotosByUser(formattedData));
     return null;
   } else {
@@ -116,10 +120,7 @@ export default function photoReducer(state = initialState, action) {
       return newState;
     case CREATE_PHOTO_BY_USER:
       newState = { ...state };
-      newState[action.payload.userId] = {
-        ...newState[action.payload.userId],
-        ...action.payload.data,
-      };
+      newState[action.payload.data.id] = action.payload.data;
       return newState;
     case UPDATE_PHOTO_BY_USER:
       newState = { ...state };
@@ -130,7 +131,7 @@ export default function photoReducer(state = initialState, action) {
       return newState;
     case DELETE_PHOTO_BY_USER:
       newState = { ...state };
-      delete newState[action.payload.data.userId][action.payload.data.id];
+      delete newState[action.payload.id];
       return newState;
     default:
       return state;

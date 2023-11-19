@@ -1,14 +1,19 @@
 .fullscreen-image {
   position: absolute;
-  width: 80vh;
+  max-width: 70vw;
   aspect-ratio: auto;
+  box-shadow: 1px 1px 5px #ffffff;
 }
 
 .gallery-image {
-  width: 200px;
   height: 200px;
-  padding: 20px;
+  box-shadow: 1px 1px 30px #ffffff;
   margin: auto;
+}
+
+.gallery-image:hover {
+  border: solid 2px #ffffff;
+  scale: 1.1;
 }
 
 #overlay-gallery {
@@ -36,8 +41,6 @@
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s ease-in-out;
-  top: 35%;
-  right: -5%;
 }
 
 #updateCoverPhoto {
@@ -50,8 +53,6 @@
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
-    top: 35%;
-    left: -5%;
 }
 
 .buttons-container {
@@ -61,4 +62,72 @@
     align-items: center;
     justify-content: space-between;
     width: 30%;
+}
+
+#deletePhoto {
+  z-index: 1000;
+  position: relative;
+  padding: 10px 20px;
+  background-color: #ff4343;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.delete {
+  position: absolute;
+  top: 40%;
+  right: 40%;
+  z-index: 100000;
+  box-shadow: 5px 5px 6px #ffffff;
+}
+
+.delete-header2 {
+  color: #ff5858;
+  font-weight: 800;
+  font-size: 32px;
+  margin: 10px;
+}
+
+#overlay-delete {
+  z-index: 70000;
+  background: rbga(25,25,25,.85);
+}
+
+.delete-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px 10px 0px 10px;
+
+}
+.cancel-delete {
+  padding: 10px 20px;
+    background-color: #084cdf;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.cancel-delete:hover {
+background: rgb(11, 255, 11);
+}
+
+.confirm-delete {
+  padding: 10px 20px;
+    background-color: #084cdf;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.confirm-delete:hover{
+  background: red;
+
 }

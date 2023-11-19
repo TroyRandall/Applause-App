@@ -92,14 +92,17 @@
   }
 
   #images {
-    height: 80vh;
-    display: grid;
+    max-height: 80vh;
+    padding:20px;
+    display: flex;
     grid-template-rows: auto;
-    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: repeat(5, auto);
     width: 80%;
     margin: auto;
-    /* align-items: center; */
-    /* justify-content: center; */
+    align-items: center;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: visible;
+    gap: 20px;
   }
