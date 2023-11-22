@@ -16,7 +16,8 @@ class UserPhoto(db.Model):
     updated_at = db.Column(db.Date(), nullable=True, default=datetime.now())
 
     user = db.relationship('User', back_populates='userPhoto')
-
+    like = db.relationship('Likes', back_populates='user',cascade="all, delete-orphan")
+    
     def to_dict(self):
         return {
             'id': self.id,
