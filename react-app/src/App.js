@@ -29,10 +29,7 @@ export const refList = [];
   }, [dispatch, user]);
 
   onAuthStateChanged(auth, async (currentUser) => {
-    const user = await auth.currentUser.reload()
-    console.log(user)
     setUser(auth?.currentUser)
-    auth?.currentUser?.reload()
 
     // dispatch(authenticate(currentUser.email)).then(() => setIsLoaded(true));
   })

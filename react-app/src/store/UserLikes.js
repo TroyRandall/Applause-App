@@ -1,3 +1,5 @@
+import usersInfoReducer from "./users";
+
 const GET_ALL_LIKES = 'likes/GET_ALL_LIKES';
 const CREATE_LIKE = 'likes/CREATE_LIKE';
 const DELETE_LIKE = 'likes/DELETE_LIKE';
@@ -31,13 +33,26 @@ export const getAllLikesThunk = (id) => async (dispatch) => {
     }
 }
 
+export const getAllLikesForComment = (id) => async (dispatch) => {
+    const response = await fetch(`/api/likes/comment/${id}`)
+    if(response.ok){
+        let newData = {};
+        const data = await response.json();
+        data.forEach( like => {
+            newData[like?.id] = like;
+        })
+        await dispatch(getAllLikes(newData));
+        return null;
+    }
+}
 export const createLikeThunk = (Like) => async (dispatch) => {
-    const response = await fetch(`/api/likes/`, {
+    let {userId, commentId} = Like;
+    const response = await fetch(`/api/likes/${userId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.Stringify(Like)
+        body: JSON.stringify(Like)
     })
 
     if(response.ok){

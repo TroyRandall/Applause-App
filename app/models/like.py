@@ -10,7 +10,7 @@ class Like(db.Model):
     id=db.Column(db.Integer(), primary_key=True)
     userId=db.Column(db.Integer(),  db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     postId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("posts.id")), nullable=True)
-    photoId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("userPhotos.id")), nullable=True)
+    photoId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("userphotos.id")), nullable=True)
     commentId = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("comments.id")), nullable=True)
     created_at = db.Column(db.Date, default = datetime.now)
     updated_at = db.Column(db.Date, default = datetime.now)
@@ -18,6 +18,7 @@ class Like(db.Model):
     user = db.relationship("User", back_populates='like')
     comment = db.relationship("Comment", back_populates='like')
     photo = db.relationship("UserPhoto", back_populates='like')
+    post=db.relationship('Post', back_populates='like')
 
     def to_dict(self):
         return {

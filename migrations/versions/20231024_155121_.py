@@ -1,4 +1,4 @@
-"""empty message
+"""create_table_userPhotos
 
 Revision ID: 9217fb77b574
 Revises: 1e94c5f9cc16

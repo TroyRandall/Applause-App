@@ -15,15 +15,19 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f"{field} : {error}")
     return errorMessages
 
-
+@like_routes.route("/comment/<int:commentId>", methods=['GET'])
+def likesByComment(commentId):
+    commentLikes = Like.query.filter(Like.commentId == commentId)
+    return [like.to_dict() for like in commentLikes]
 @like_routes.route("/<int:userId>", methods=['GET', 'POST'])
 def create_get_likes(userId):
     if(request.method == 'GET'):
         userLikes = Like.query.filter(Like.userId == userId)
         return userLikes
-    elif (request.method == 'Post'):
+    elif (request.method == 'POST'):
         form = CreateLikeForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
+        print(form.validate())
         if(form.validate()):
             newLike = Like(
                 userId = userId,

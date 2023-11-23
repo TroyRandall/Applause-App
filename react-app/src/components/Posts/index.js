@@ -5,6 +5,8 @@ import "./posts.css";
 
 import UpdatePost from "../UpdatePost";
 import AllComments from '../allComments';
+import Like from "../LikeComponent";
+
 
 function Post({ post }) {
   const waveformRefPost = useRef(null);
@@ -89,6 +91,7 @@ function Post({ post }) {
       <div className="post-footer">
         <h3 className="post-username">Post Created By {post?.username}</h3>
         <span className="post-date">{post?.created_at.slice(0, 12)}</span>
+        <Like />
       </div>
       <AllComments postId={post?.id} />
     </div>

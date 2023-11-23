@@ -105,3 +105,163 @@
     background: linear-gradient(320deg, rgb(255, 67, 67), rgb(255, 44, 44));
     color: #ffffff;
   }
+
+  .comments {
+    display: grid;
+    grid-template-columns: 35px 1fr;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #e7e7e7;
+  }
+
+  .comment-react {
+    width: 35px;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: auto;
+    margin: 0;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+  }
+
+  .comment-react button {
+    width: 35px;
+    height: 35px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+  }
+
+  .comment-react button:after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: -2.5px;
+    top: -2.5px;
+    background-color: #f5356e;
+    border-radius: 50%;
+    z-index: 0;
+    transform: scale(0);
+  }
+
+  .comment-react button svg {
+    position: relative;
+    z-index: 9;
+  }
+
+  .comment-react button:hover:after {
+    animation: ripple 0.6s ease-in-out forwards;
+  }
+
+  .comment-react button:hover svg {
+    fill: #f5356e;
+  }
+
+  .comment-react button:hover svg path {
+    stroke: #f5356e;
+    fill: #f5356e;
+  }
+
+  .comment-react hr {
+    width: 80%;
+    height: 1px;
+    background-color: #dfe1e6;
+    margin: auto;
+    border: 0;
+  }
+
+  .comment-react span {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 13px;
+    font-weight: 600;
+    color: #707277;
+  }
+
+  .comment-body {
+    border-top: 1px solid #e7e7e7;
+  }
+  .comment-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+  }
+
+  .comment-container .user2 {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 10px;
+  }
+
+  .comment-container .user2 .user-pic {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+  }
+
+  .comment-container .user2 .user-pic:after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    border-radius: 50%;
+    background-color: #0fc45a;
+    border: 2px solid #ffffff;
+  }
+
+  .comment-container .user2 .user-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .comment-container .user2 .user-info span {
+    font-weight: 700;
+    font-size: 12px;
+    color: #47484b;
+  }
+
+  .comment-container .user2 .user-info p {
+    font-weight: 600;
+    font-size: 10px;
+    color: #acaeb4;
+  }
+
+  .comment-container .comment-content {
+    font-size: 15px;
+    line-height: 16px;
+    font-weight: 600;
+    color: #5f6064;
+    margin: 0px;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0);
+      opacity: 0.6;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
