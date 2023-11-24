@@ -23,6 +23,7 @@ class Like(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'userId': self.userId,
             'postId': self.postId,
             'photoId': self.photoId,
             'commentId': self.commentId,

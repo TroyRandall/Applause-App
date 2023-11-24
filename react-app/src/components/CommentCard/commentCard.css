@@ -1,11 +1,8 @@
 .edit-delete-comment {
     display: flex;
-    width: 40%;
     align-items: center;
     justify-content: flex-end;
     gap: 1vw;
-    margin-left: 2vw;
-    margin-right: 2vw;
 }
 
 .form-update {
@@ -198,7 +195,7 @@
 
   .comment-container .user2 {
     display: grid;
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 40px 1fr 1fr;
     gap: 10px;
   }
 

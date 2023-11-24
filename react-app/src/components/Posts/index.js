@@ -91,7 +91,6 @@ function Post({ post }) {
       <div className="post-footer">
         <h3 className="post-username">Post Created By {post?.username}</h3>
         <span className="post-date">{post?.created_at.slice(0, 12)}</span>
-        <Like />
       </div>
       <AllComments postId={post?.id} />
     </div>

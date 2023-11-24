@@ -49,3 +49,7 @@ def delete_like(id):
         return {
             'success': 'Like Successfully Deleted'
         }
+    else:
+        return {
+            'error': 'Unable To Locate Like At This Moment'
+        }
