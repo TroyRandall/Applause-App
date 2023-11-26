@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./galleryImage.css";
 import * as userActions from '../../store/session'
+import * as photoActions from '../../store/userPhotos';
 import { useDispatch, useSelector } from "react-redux";
+import { setUserProperties } from "firebase/analytics";
 
 function GalleryImage({ photoUrl, photoId, id }) {
   const [fullscreenToggle, setFullscreenToggle] = useState(false);
+  const [deleteToggle, setDeleteToggle] = useState(false);
+  const [errors, setErrors] = useState({})
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user)
 
   useEffect(() => {
     const cancelFullscreen = (e) => {
       e.preventDefault();
+      console.log(e.target);
       const image = document.getElementById(photoId);
-      if (e.target !== image) {
+      const overlay = document.getElementsByClassName('overlay')
+      if (e.target === overlay) {
+        console.log('testing')
+        console.log(e?.target)
         setFullscreenToggle(false);
       }
     };
@@ -27,11 +35,39 @@ function GalleryImage({ photoUrl, photoId, id }) {
   const handleProfilePhoto = () => {
     const url = photoUrl
     dispatch(userActions.updatePhoto(url, id))
+    setFullscreenToggle(false);
   }
 
   const handleCoverPhoto = () => {
     const url = photoUrl
     dispatch(userActions.updateCoverPhoto(url, id));
+    setFullscreenToggle(false);
+  }
+
+  const handleDeletePhoto = async() => {
+    const response = await dispatch(photoActions.deletePhotoByUserThunk(currentUser?.id, photoId))
+    if(response){
+      setErrors(response)
+    }
+  }
+
+  const checkDeleteToggle = () => {
+    if(deleteToggle) {
+      return (
+        <div className='overlay' id='overlay-delete' onClick={(e) => [e.stopPropagation(),setDeleteToggle(false)]}>
+          <div className='card delete' onClick ={e => e.stopPropagation()}>
+            <div>
+              <h2 className = 'card-header delete-header2'>Warning</h2>
+              <p className='card-body' >You are about to delete this photo. If you would like to continue with this action, press Delete. Otherwise, please press Cancel.</p>
+            </div>
+            <div className='delete-buttons'>
+              <button className='cancel-delete'onClick={() => setDeleteToggle(false)}>Cancel</button>
+              <button className='confirm-delete'onClick={handleDeletePhoto}>Delete</button>
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
   const checkFullscreen = () => {
     if (fullscreenToggle) {
@@ -53,7 +89,9 @@ function GalleryImage({ photoUrl, photoId, id }) {
             <div className='buttons-container'>
                <button onClick ={handleProfilePhoto} id='updatePhoto'>Make Profile Photo</button>
                <button onClick ={handleCoverPhoto} id='updateCoverPhoto'>Make Cover Photo</button>
+               <button onClick={(e) => [e.stopPropagation(), setDeleteToggle(true)]} id='deletePhoto'>Delete Photo</button>
             </div> : null }
+            {checkDeleteToggle()}
 
           </div>
         </>

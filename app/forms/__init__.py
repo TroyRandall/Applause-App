@@ -6,3 +6,4 @@ from .create_comment_form import CreateCommentForm
 from .update_comment_form import UpdateCommentForm
 from .update_photo_form import UpdatePhotoForm
 from .create_photo_form import CreatePhotoForm
+from .create_like_form import CreateLikeForm

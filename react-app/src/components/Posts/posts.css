@@ -15,8 +15,6 @@
   border-radius: 20px;
   background: #ffffff;
   box-shadow: 5px 15px 6px #dadada, -5px -15px 6px #f6f6f6;
-  transition: 0.4s;
-  translate: 0 -10px;
 }
 
 .post-card-active {

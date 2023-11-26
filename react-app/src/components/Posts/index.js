@@ -5,6 +5,8 @@ import "./posts.css";
 
 import UpdatePost from "../UpdatePost";
 import AllComments from '../allComments';
+import Like from "../LikeComponent";
+
 
 function Post({ post }) {
   const waveformRefPost = useRef(null);

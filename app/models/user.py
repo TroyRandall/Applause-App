@@ -26,6 +26,7 @@ class User(db.Model, UserMixin):
     post=db.relationship('Post', back_populates='user', cascade="all, delete-orphan")
     comment = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
     userPhoto = db.relationship('UserPhoto', back_populates='user', cascade='all, delete-orphan')
+    like=db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
     @property
     def password(self):
         return self.hashed_password

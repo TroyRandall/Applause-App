@@ -58,3 +58,16 @@ def create_user_photo(id):
             return {
                 "error": "Unable To Validation Content Before Submission, Please Adjust Information"
             }
+@photo_routes.route('/<int:id>', methods=['DELETE'])
+def deletePhoto(id):
+    userPhoto = UserPhoto.query.get(id)
+    if(userPhoto):
+        db.session.delete(userPhoto)
+        db.session.commit()
+        return {
+            'success': 'photo Successfully deleted'
+        }
+    else:
+        return {
+            'error': 'Unable To Locate Photo At This Time, Please Try Again Later'
+        }
