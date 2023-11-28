@@ -13,6 +13,7 @@ function CommentCard({ comment, postId }) {
   const [likeId, setLikeId] = useState(false);
   const [likeCounter, setLikeCounter] = useState(0);
   const [toggle, setToggle] = useState(false);
+  const [dataToggle, setDataToggle] = useState(false);
   const [commentId, setCommentId] = useState(false);
   const [commentContent, setCommentContent] = useState(false);
   const [errors, setErrors] = useState(false);
@@ -30,15 +31,16 @@ function CommentCard({ comment, postId }) {
               setLiked(true);
               setLikeId(response[i].id);
               setLikeCounter(response?.length);
+              setDataToggle(true)
               return null;
             }
           }
         }
-        if (liked !== false) {
-          setLiked(false);
-          setLikeId(false);
-          setLikeCounter(response?.length);
-        }
+        setLikeCounter(response?.length);
+        // if (dataToggle !== false) {
+        //   setLiked(false);
+        //   setLikeId(false);
+        // }
       }
     };
     if (!toggle) {
@@ -47,13 +49,17 @@ function CommentCard({ comment, postId }) {
   }, [dispatch, toggle, comment]);
 
   const handleLike = async (e) => {
-    e.stopPropagation();
-    console.log(liked);
+    e.preventDefault();
+    console.log("this is the handleLike");
+    console.log(likes);
     if (likes) {
+      console.log("inside handlelike");
       let allLikes = Object.values(likes);
       for (let i = 0; i < allLikes.length; i++) {
-        if (allLikes[i]?.userId === currentUser?.userId) {
-          console.log(allLikes[i])
+        console.log(allLikes[i]);
+        console.log(currentUser?.id);
+        if (allLikes[i]?.userId === currentUser?.id) {
+          console.log(allLikes[i]);
           await dispatch(
             likeActions.deleteLikeThunk(allLikes[i]?.id, comment?.id)
           );
@@ -68,8 +74,8 @@ function CommentCard({ comment, postId }) {
       let commentId = comment?.id;
       let like = { userId, commentId };
       let res = await dispatch(likeActions.createLikeThunk(like));
-      console.log('this is the result')
-      console.log(res)
+      console.log("this is the result");
+      console.log(res);
       setLiked(true);
       setLikeId(res?.id);
       setToggle(true);

@@ -18,13 +18,11 @@ function AllComments({ postId }) {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments[postId]);
   const currentUser = useSelector((state) => state.session.user);
-  const likes = useSelector((state) => state.likes);
 
   useEffect(() => {
     if (postId) {
-      dispatch(commentActions.getAllCommentsThunk(postId)).then(() =>
-        dispatch(likeActions.getAllLikesThunk()).then(() => setIsLoaded(true))
-      );
+      dispatch(commentActions.getAllCommentsThunk(postId)).then(() => setIsLoaded(true))
+
     }
   }, [postId, dispatch]);
 
@@ -85,7 +83,6 @@ function AllComments({ postId }) {
                         comment={comment}
                         postId={postId}
                         key={comment?.id}
-                        likes = {likes[comment?.id]}
                       />
                     );
                   } else return null;
@@ -98,7 +95,6 @@ function AllComments({ postId }) {
                       comment={comment}
                       postId={postId}
                       key={comment?.id}
-                      likes = {likes[comment?.id]}
                     />
                   );
                 } else return null;

@@ -45,7 +45,7 @@ def create_get_likes(userId):
 
             db.session.add(newLike)
             db.session.commit()
-            return newLike.to_dict()
+            return {newLike.id: newLike.to_dict()}
 
 
 @like_routes.route("/<int:id>", methods=["DELETE"])

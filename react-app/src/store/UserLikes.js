@@ -70,7 +70,8 @@ export const getAllLikesForComment = (id) => async (dispatch) => {
   }
 };
 
-//somewhere in this reducer it is messing up the flow of data and causing the frontend to not load properly. I am most likley going to add a loop in the reducer itself and normalize all the data in there so I know it is getting back correctly. atleast for create and delete.""
+//somewhere in this reducer it is messing up the flow of data and causing the frontend to not load properly. I am most likley going to add a loop in the reducer itself and normalize all the data in there so I know it is getting back correctly. atleast for create and delete."+++++++++++++++++++++
+
 export const createLikeThunk = (Like) => async (dispatch) => {
   let { userId, commentId } = Like;
   const response = await fetch(`/api/likes/${userId}`, {
