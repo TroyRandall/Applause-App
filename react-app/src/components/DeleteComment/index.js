@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as commentActions from "../../store/comments.js";
+import * as likeAction from '../../store/UserLikes.js'
 import "./deleteComment.css";
 
 function DeleteComment({ commentId, postId }) {
@@ -45,6 +46,7 @@ function DeleteComment({ commentId, postId }) {
         setErrors(res);
         return errors;
       } else {
+        await dispatch(likeAction.getAllLikesThunk())
         setDeleteCommentToggle(false);
       }
     } else if ( !deleteCommentContainerRef.current.contains(e.target) ||deleteCommentDenyRef.current.contains(e.target)) {

@@ -15,12 +15,9 @@ function GalleryImage({ photoUrl, photoId, id }) {
   useEffect(() => {
     const cancelFullscreen = (e) => {
       e.preventDefault();
-      console.log(e.target);
       const image = document.getElementById(photoId);
       const overlay = document.getElementsByClassName('overlay')
       if (e.target === overlay) {
-        console.log('testing')
-        console.log(e?.target)
         setFullscreenToggle(false);
       }
     };

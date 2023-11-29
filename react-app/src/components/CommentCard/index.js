@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import * as commentActions from "../../store/comments";
@@ -8,88 +8,84 @@ import DeleteComment from "../DeleteComment";
 
 function CommentCard({ comment, postId }) {
   const [updateCommentToggle, setUpdateCommentToggle] = useState(false);
+  const [likesIsLoaded, setLikesIsLoaded] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeId, setLikeId] = useState(false);
+  const [likeCounter, setLikeCounter] = useState(0);
+  const [toggle, setToggle] = useState(false);
+  const [dataToggle, setDataToggle] = useState(false);
   const [commentId, setCommentId] = useState(false);
   const [commentContent, setCommentContent] = useState(false);
   const [errors, setErrors] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
-  const likes = useSelector((state) => state.likes);
+  const likes = useSelector((state) => state.likes[comment?.id]);
   useEffect(() => {
     const loadLikes = async (e) => {
-      await dispatch(likeActions.getAllLikesForComment(comment?.id));
-    };
-    loadLikes();
-  }, []);
-
-  const checkLiked = () => {
-    if (likes) {
-      Object.values(likes).forEach((like) => {
-        console.log(like);
-        console.log(currentUser);
-        console.log(like?.id === currentUser?.id);
-        if (like?.userId === currentUser?.id) {
-          if (liked !== true) {
-            setLiked(true);
-            setLikeId(like?.id);
+      let res = await dispatch(likeActions.getAllLikesForComment(comment?.id));
+      if (res) {
+        let response = Object.values(res);
+        for (let i = 0; i < response.length; i++) {
+          if (response[i].userId === currentUser?.id) {
+            if (liked !== true) {
+              setLiked(true);
+              setLikeId(response[i].id);
+              setLikeCounter(response?.length);
+              setDataToggle(true)
+              return null;
+            }
           }
         }
-      });
-      if (liked) {
-        return (
-          <svg
-            fill="#f5356e"
-            viewBox="0 0 24 24"
-            height="16"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill="#f5356e"
-              stroke-linecap="round"
-              stroke-width="2"
-              stroke="#f5356e"
-              d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
-            ></path>
-          </svg>
-        );
-      } else {
-        return (
-          <>
-            <svg
-              fill="none"
-              viewBox="0 0 24 24"
-              height="16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="#707277"
-                stroke-linecap="round"
-                stroke-width="2"
-                stroke="#707277"
-                d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
-              ></path>
-            </svg>
-          </>
-        );
+        setLikeCounter(response?.length);
+        // if (dataToggle !== false) {
+        //   setLiked(false);
+        //   setLikeId(false);
+        // }
       }
+    };
+    if (!toggle) {
+      loadLikes().then(() => setLikesIsLoaded(true));
     }
-  };
+  }, [dispatch, toggle, comment]);
+
   const handleLike = async (e) => {
-    console.log(liked);
-    if (liked) {
-      await dispatch(likeActions.deleteLikeThunk(likeId));
-      setLiked(false);
-      setLikeId(false);
+    e.preventDefault();
+    if (likes) {
+      let allLikes = Object.values(likes);
+      for (let i = 0; i < allLikes.length; i++) {
+        if (allLikes[i]?.userId === currentUser?.id) {
+          await dispatch(
+            likeActions.deleteLikeThunk(allLikes[i]?.id, comment?.id)
+          );
+          setLiked(false);
+          setLikeId(false);
+          setToggle(true);
+          setToggle(false);
+          return null;
+        }
+      }
+      let userId = currentUser?.id;
+      let commentId = comment?.id;
+      let like = { userId, commentId };
+      let res = await dispatch(likeActions.createLikeThunk(like));
+      setLiked(true);
+      setLikeId(res?.id);
+      setToggle(true);
+      setToggle(false);
+      return null;
     } else {
       let userId = currentUser?.id;
       let commentId = comment?.id;
       let like = { userId, commentId };
-      await dispatch(likeActions.createLikeThunk(like));
+      let res = await dispatch(likeActions.createLikeThunk(like));
+      setLiked(true);
+      setLikeId(res?.id);
+      setToggle(true);
+      setToggle(false);
+      return null;
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let userId = currentUser?.id;
@@ -122,7 +118,7 @@ function CommentCard({ comment, postId }) {
     }
   };
 
-  return updateCommentToggle ? (
+  return likesIsLoaded && updateCommentToggle ? (
     <form className="comment">
       <div className="comment-details">
         <div className="comment-user">{comment?.username}</div>
@@ -177,9 +173,43 @@ function CommentCard({ comment, postId }) {
     // </div>
     <div class="comments">
       <div class="comment-react">
-        <button onClick={handleLike}>{checkLiked()}</button>
+        <button onClick={handleLike}>
+          {liked ? (
+            <svg
+              //       fill="#f5356e"
+              viewBox="0 0 24 24"
+              height="16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#f5356e"
+                stroke-linecap="round"
+                stroke-width="2"
+                stroke="#f5356e"
+                d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+              ></path>
+            </svg>
+          ) : (
+            <svg
+              fill="none"
+              viewBox="0 0 24 24"
+              height="16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#707277"
+                stroke-linecap="round"
+                stroke-width="2"
+                stroke="#707277"
+                d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z"
+              ></path>
+            </svg>
+          )}
+        </button>
         <hr />
-        <span>{likes ? Object.values(likes).length : null}</span>
+        <span>{likeCounter}</span>
       </div>
       <div class="comment-container">
         <div class="user2">
@@ -210,24 +240,23 @@ function CommentCard({ comment, postId }) {
           <div class="user-info">
             <span>{comment?.username}</span>
             <p>{comment?.created_at.slice(0, 12)}</p>
-
           </div>
           {currentUser?.id === comment?.userId ? (
-              <div className="edit-delete-comment">
-                <button
-                  className="edit-button"
-                  onClick={(e) => [
-                    setUpdateCommentToggle(true),
-                    setCommentContent(comment?.commentContent),
-                    setCommentId(comment?.id),
-                  ]}
-                >
-                  📝
-                </button>
+            <div className="edit-delete-comment">
+              <button
+                className="edit-button"
+                onClick={(e) => [
+                  setUpdateCommentToggle(true),
+                  setCommentContent(comment?.commentContent),
+                  setCommentId(comment?.id),
+                ]}
+              >
+                📝
+              </button>
 
-                <DeleteComment commentId={comment?.id} postId={postId} />
-              </div>
-            ) : null}
+              <DeleteComment commentId={comment?.id} postId={postId} />
+            </div>
+          ) : null}
         </div>
         <p class="comment-content">{comment?.commentContent}</p>
       </div>
