@@ -329,11 +329,17 @@
   justify-content: space-between;
 }
 
+#deleteCard {
+  position: relative;
+  right: 23vw;
+  width:270px;
+}
+
 .delete-post {
   right: 5vw;
   top: 3vh;
-  position: absolute;
-  right: 26vw;
+  position: relative;
+  /* background: #ffffff; */
   color: #000;
   border-radius: 10px;
   width: 40px;

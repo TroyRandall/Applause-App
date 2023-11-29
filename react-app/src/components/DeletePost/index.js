@@ -49,7 +49,7 @@ setDeleteToggle(true);
           ref={overlayRefDelete}
         >
           <div id="delete-post-container">
-            <div class="delete-card">
+            <div class="delete-card" id='deleteCard'>
               <div class="delete-header">
                 <div class="delete-image">
                   <img
