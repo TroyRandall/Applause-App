@@ -44,8 +44,6 @@ export const getAllLikesThunk = () => async (dispatch) => {
     data.forEach((like) => {
       newLike = {};
       newLike[like?.id] = like;
-      console.log(newLike);
-      console.log(like.commentId);
       if (newData[like?.commentId]) {
         newData[like?.commentId] = { ...newData[like?.commentId],like };
       } else {
@@ -116,8 +114,6 @@ export default function likesReducer(state = initialState, action) {
     case CREATE_LIKE:
       newState = { ...state };
       newState[action.payload.commentId] = {...newState[action.payload.commentId] , ...action.payload.data}
-      console.log(`this is the reducer ${newState}`)
-      console.log(newState)
       return Object.assign({}, newState);
     case DELETE_LIKE:
       newState = { ...state };

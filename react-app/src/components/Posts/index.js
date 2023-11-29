@@ -4,9 +4,8 @@ import WaveSurfer from "wavesurfer.js";
 import "./posts.css";
 
 import UpdatePost from "../UpdatePost";
-import AllComments from '../allComments';
-import Like from "../LikeComponent";
-
+import AllComments from "../allComments";
+import LikePost from "../likePost";
 
 function Post({ post }) {
   const waveformRefPost = useRef(null);
@@ -50,7 +49,10 @@ function Post({ post }) {
       id={`post-container${post.id}`}
       className={playToggle ? "post-card-active" : "post-card"}
     >
-      {post?.imageSrc !== false && (post?.imageSrc !== "0" && (post?.imageSrc !== 'false' && post?.imageSrc !== null)) ? (
+      {post?.imageSrc !== false &&
+      post?.imageSrc !== "0" &&
+      post?.imageSrc !== "false" &&
+      post?.imageSrc !== null ? (
         <img
           className="post-card-image"
           src={post?.imageSrc}
@@ -68,7 +70,14 @@ function Post({ post }) {
           {post?.postContent}
         </p>
         <div
-          id={post?.musicSrc !== "0" && (post?.musicSrc !== false && (post?.musicSrc !== 'false' && post?.musicSrc !== null)) ? "post-waveSurfer-container" : "hidden"}
+          id={
+            post?.musicSrc !== "0" &&
+            post?.musicSrc !== false &&
+            post?.musicSrc !== "false" &&
+            post?.musicSrc !== null
+              ? "post-waveSurfer-container"
+              : "hidden"
+          }
         >
           <button
             onClick={playPause}
@@ -88,9 +97,12 @@ function Post({ post }) {
           ></div>
         </div>
       </div>
-      <div className="post-footer">
-        <h3 className="post-username">Post Created By {post?.username}</h3>
-        <span className="post-date">{post?.created_at.slice(0, 12)}</span>
+      <div className="post-footer-container">
+        <LikePost post={post} />
+        <div className="post-footer">
+          <h3 className="post-username">Post Created By {post?.username}</h3>
+          <span className="post-date">{post?.created_at.slice(0, 12)}</span>
+        </div>
       </div>
       <AllComments postId={post?.id} />
     </div>
