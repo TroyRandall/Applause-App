@@ -1,148 +1,44 @@
-# Flask React Project
+# Welcome to Applause👏🙌
 
-This is the starter for the Flask React project.
-
-## Getting started
-1. Clone this repository (only this branch)
-
-2. Install dependencies
-
-      ```bash
-      pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-
-4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+Inspired by the synergy of social media giants like Facebook, Instagram, and Twitter, Applause emerges as an independent masterpiece, merging social interaction with seamless design. Users are empowered to craft their digital personas through customizable profiles and photo galleries, while dynamic real-time data flow ensures a seamless and engaging experience. This expansive solution is crafted using a fusion of Javascript and Python, with React/Redux providing a thoughtful user interface and Flask managing the robust backend.
 
 
-## Deployment through Render.com
+# Tech Stack:
+- Languagues, Frameworks, Libraries: Python, JavaScript, Flask, React, Redux, Wavesurfer.js, Firebase, HTML5, CSS3, SQAlchemy, 
+- Database: Postgresql
+- Hosting: Render
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+# Features of Applause:
+- HomePage for all users
+![applauseHomepage](https://github.com/TroyRandall/Applause-App/assets/105599802/7cec4424-1ca6-422a-9bf4-e090d6451d0e)
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
+- Login page for user:
+![applauseLoginPage](https://github.com/TroyRandall/Applause-App/assets/105599802/06ba5de8-7853-4ed7-8440-99cf5d4d3425)
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+- User Profile Page:
+![ApplauseUserProfile2](https://github.com/TroyRandall/Applause-App/assets/105599802/78feb73b-8f83-426d-88dc-d9ce21b2425b)
+![applauseUserProfile1](https://github.com/TroyRandall/Applause-App/assets/105599802/ffa09679-9827-4497-a272-c573988802d0)
 
-### Part A: Configure the Start and Build Commands
+- Photo Gallery and Image Upload:
+![applausePhotoGallery](https://github.com/TroyRandall/Applause-App/assets/105599802/cba1cd28-e5f9-410b-b58d-a878343997e6)
+![applauseImageUpload](https://github.com/TroyRandall/Applause-App/assets/105599802/5cea7be3-58c2-412a-809f-9e7fe78ac24a)
+![applauseUserProfileCustomization](https://github.com/TroyRandall/Applause-App/assets/105599802/00c74534-d2c1-4907-a9e7-b57c73824dcc)
 
-Start by giving your application a name.
+-Post Creation:
+![applauseCreatePost](https://github.com/TroyRandall/Applause-App/assets/105599802/b00c4543-f8c2-4305-b4f5-65ea8dbc0dc3)
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
+-Comment Creation and Updating:
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+![applauseEditandcreateComment](https://github.com/TroyRandall/Applause-App/assets/105599802/34780160-ea0a-49b3-8e75-b4716dee9783)
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+-Like Feature:
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
+![applauseLikecommentsPosts](https://github.com/TroyRandall/Applause-App/assets/105599802/c61f0d75-c4e3-4021-b5f6-b91c44f1b382)
+![applauseLikeCommentsPosts2](https://github.com/TroyRandall/Applause-App/assets/105599802/7d8b7a74-e3bd-4c9c-93a9-0fffd221a21d)
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
+# Live Website Link:
+https://applause.onrender.com/
 [Render.com]: https://render.com/
 [Dashboard]: https://dashboard.render.com/
