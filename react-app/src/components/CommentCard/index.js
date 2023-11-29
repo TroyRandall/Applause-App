@@ -5,15 +5,14 @@ import * as commentActions from "../../store/comments";
 import * as likeActions from "../../store/UserLikes";
 import "./commentCard.css";
 import DeleteComment from "../DeleteComment";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 function CommentCard({ comment, postId }) {
   const [updateCommentToggle, setUpdateCommentToggle] = useState(false);
   const [likesIsLoaded, setLikesIsLoaded] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [likeId, setLikeId] = useState(false);
   const [likeCounter, setLikeCounter] = useState(0);
   const [toggle, setToggle] = useState(false);
-  const [dataToggle, setDataToggle] = useState(false);
   const [commentId, setCommentId] = useState(false);
   const [commentContent, setCommentContent] = useState(false);
   const [errors, setErrors] = useState(false);
@@ -29,9 +28,7 @@ function CommentCard({ comment, postId }) {
           if (response[i].userId === currentUser?.id) {
             if (liked !== true) {
               setLiked(true);
-              setLikeId(response[i].id);
               setLikeCounter(response?.length);
-              setDataToggle(true)
               return null;
             }
           }
@@ -58,7 +55,6 @@ function CommentCard({ comment, postId }) {
             likeActions.deleteLikeThunk(allLikes[i]?.id, comment?.id)
           );
           setLiked(false);
-          setLikeId(false);
           setToggle(true);
           setToggle(false);
           return null;
@@ -69,7 +65,6 @@ function CommentCard({ comment, postId }) {
       let like = { userId, commentId };
       let res = await dispatch(likeActions.createLikeThunk(like));
       setLiked(true);
-      setLikeId(res?.id);
       setToggle(true);
       setToggle(false);
       return null;
@@ -79,7 +74,6 @@ function CommentCard({ comment, postId }) {
       let like = { userId, commentId };
       let res = await dispatch(likeActions.createLikeThunk(like));
       setLiked(true);
-      setLikeId(res?.id);
       setToggle(true);
       setToggle(false);
       return null;
@@ -238,7 +232,9 @@ function CommentCard({ comment, postId }) {
             </svg>
           </div>
           <div class="user-info">
-            <span>{comment?.username}</span>
+            <NavLink to={`/profile/${comment?.userId}`} style={{ textDecoration: "none" }}>
+              <span id='usernameComment'>{comment?.username}</span>
+            </NavLink>
             <p>{comment?.created_at.slice(0, 12)}</p>
           </div>
           {currentUser?.id === comment?.userId ? (

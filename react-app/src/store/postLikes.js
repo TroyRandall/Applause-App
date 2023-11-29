@@ -1,36 +1,34 @@
-import usersInfoReducer from "./users";
-
-const GET_ALL_LIKES = "likes/GET_ALL_LIKES";
-const GET_ALL_LIKES_COMMENT = 'likes/GET_ALL_LIKES_COMMENT'
-const CREATE_LIKE = "likes/CREATE_LIKE";
-const DELETE_LIKE = "likes/DELETE_LIKE";
+const GET_ALL_LIKES_POSTLIKES = "likes/GET_ALL_LIKES";
+const GET_ALL_LIKES_POST = 'likes/GET_ALL_LIKES_POST'
+const CREATE_LIKE_POST = "likes/CREATE_LIKE";
+const DELETE_LIKE_POST = "likes/DELETE_LIKE";
 
 const getAllLikes = (data) => ({
-  type: GET_ALL_LIKES,
+  type: GET_ALL_LIKES_POSTLIKES,
   payload: data,
 });
 
-const getAllLikesComment = (data, commentId) => ({
-    type: GET_ALL_LIKES_COMMENT,
+const getAllLikesPost = (data, postId) => ({
+    type: GET_ALL_LIKES_POST,
     payload: {
       data: data,
-      commentId: commentId,
+      postId: postId,
     },
   });
 
-const createLike = (data, commentId) => ({
-  type: CREATE_LIKE,
+const createLikePost = (data, postId) => ({
+  type: CREATE_LIKE_POST,
   payload: {
     data: data,
-    commentId: commentId,
+    postId: postId,
   },
 });
 
-const deleteLike = (id, commentId) => ({
-  type: DELETE_LIKE,
+const deleteLikePost = (id, postId) => ({
+  type: DELETE_LIKE_POST,
   payload: {
     id: id,
-    commentId: commentId,
+    postId: postId,
   },
 });
 
@@ -44,10 +42,10 @@ export const getAllLikesThunk = () => async (dispatch) => {
     data.forEach((like) => {
       newLike = {};
       newLike[like?.id] = like;
-      if (newData[like?.commentId]) {
-        newData[like?.commentId] = { ...newData[like?.commentId],like };
+      if (newData[like?.postId]) {
+        newData[like?.postId] = { ...newData[like?.postId],like };
       } else {
-        newData[like?.commentId] = { ...like };
+        newData[like?.postId] = { ...like };
       }
     });
     await dispatch(getAllLikes(newData));
@@ -55,69 +53,69 @@ export const getAllLikesThunk = () => async (dispatch) => {
   }
 };
 
-export const getAllLikesForComment = (id) => async (dispatch) => {
-  const response = await fetch(`/api/likes/comment/${id}`);
+export const getAllLikesForPost = (id) => async (dispatch) => {
+  const response = await fetch(`/api/likes/post/${id}`);
   if (response.ok) {
     let newData = {};
     const data = await response.json();
     data.forEach((like) => {
       newData[like?.id] = like;
     });
-    await dispatch(getAllLikesComment(newData, id));
+    await dispatch(getAllLikesPost(newData, id));
     return newData;
   }
 };
 
 //somewhere in this reducer it is messing up the flow of data and causing the frontend to not load properly. I am most likley going to add a loop in the reducer itself and normalize all the data in there so I know it is getting back correctly. atleast for create and delete."+++++++++++++++++++++
 
-export const createLikeThunk = (Like) => async (dispatch) => {
-  let { userId, commentId } = Like;
+export const createLikeThunkPost = (Like) => async (dispatch) => {
+  let { userId, postId } = Like;
   const response = await fetch(`/api/likes/${userId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(Like, commentId),
+    body: JSON.stringify(Like, postId),
   });
 
   if (response.ok) {
     const data = await response.json();
-    await dispatch(createLike(data, commentId));
+    await dispatch(createLikePost(data, postId));
     return data;
   }
 };
 
-export const deleteLikeThunk = (id, commentId) => async (dispatch) => {
+export const deleteLikeThunkPost = (id, postId) => async (dispatch) => {
   const response = await fetch(`/api/likes/${id}`, {
     method: "DELETE",
   });
 
   if (response.ok) {
-    await dispatch(deleteLike(id, commentId));
+    await dispatch(deleteLikePost(id, postId));
     return null;
   }
 };
 
-const initialState = { user: null };
+const initialState = { postLikes: null };
 
-export default function likesReducer(state = initialState, action) {
+export default function postLikesReducer(state = initialState, action) {
   let newState;
   switch (action.type) {
-    case GET_ALL_LIKES:
+    case GET_ALL_LIKES_POSTLIKES:
       newState = { ...state};
       newState = {...action.payload}
       return newState;
-    case GET_ALL_LIKES_COMMENT:
+    case GET_ALL_LIKES_POST:
         newState = { ...state };
-        newState[action.payload.commentId] = {...newState[action.payload.commentId] ,...action.payload.data};
+        newState[action.payload.postId] = {...newState[action.payload.postId] ,...action.payload.data};
         return Object.assign({}, newState);
-    case CREATE_LIKE:
+    case CREATE_LIKE_POST:
       newState = { ...state };
-      newState[action.payload.commentId] = {...newState[action.payload.commentId] , ...action.payload.data}
+      newState[action.payload.postId] = {...newState[action.payload.postId] , ...action.payload.data}
       return Object.assign({}, newState);
-    case DELETE_LIKE:
+    case DELETE_LIKE_POST:
       newState = { ...state };
-      delete newState[action.payload.commentId][action.payload.id];
+      delete newState[action.payload.postId][action.payload.id];
       return Object.assign({}, newState);
     default:
       return state;

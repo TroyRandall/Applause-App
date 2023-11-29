@@ -247,6 +247,11 @@
     margin: 0px;
   }
 
+  #usernameComment:hover {
+    color:blue;
+    font-weight: 700;
+    cursor:pointer;
+  }
   @keyframes ripple {
     0% {
       transform: scale(0);

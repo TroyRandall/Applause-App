@@ -25,6 +25,11 @@ def likesByComment(commentId):
     commentLikes = Like.query.filter(Like.commentId == commentId)
     return [like.to_dict() for like in commentLikes]
 
+@like_routes.route('/post/<int:postId>', methods =['GET'])
+def likesByPost(postId):
+    postLikes = Like.query.filter(Like.postId == postId)
+    return [like.to_dict() for like in postLikes]
+
 
 @like_routes.route("/<int:userId>", methods=["GET", "POST"])
 def create_get_likes(userId):
