@@ -1,102 +1,113 @@
 .comment-react-post {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    border-radius: 5px;
-  }
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
+}
 
-  .comment-react-post button {
-    width: 35px;
-    height: 35px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: 0;
-    outline: none;
-  }
+.comment-react-post button {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
 
-  .comment-react-post button:after {
-    content: "";
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: -3px;
-    top: -3px;
-    background: linear-gradient(to bottom right, #3598f5, #06159c);
-    border-radius: 50%;
-    z-index: 0;
+.comment-react-post button:after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  background: linear-gradient(to bottom right, #3598f5, #06159c);
+  border-radius: 50%;
+  z-index: 0;
+  transform: scale(0);
+  filter: blur(10px);
+}
+
+.comment-react-post button svg {
+  position: relative;
+  z-index: 9;
+  -webkit-transition: all 1s ease;
+}
+
+.comment-react-post button:hover:after {
+  animation: ripple 0.75s ease-in-out infinite;
+}
+
+.animate {
+  animation: ripple2 0.9s linear infinite;
+}
+
+.comment-react-post button:hover svg {
+  animation: ripple2 0.9s linear infinite;
+  -webkit-transition: all 1s ease;
+  fill: #f5356e;
+}
+
+.animate-path {
+  stroke: #2d88ff;
+  fill: #57a0ff;
+}
+
+.comment-react-post button:hover svg path {
+  stroke: #2d88ff;
+  fill: #57a0ff;
+}
+
+.comment-react-post hr {
+  width: 80%;
+  height: 1px;
+  background-color: #dfe1e6;
+  margin: auto;
+  border: 0;
+}
+
+.comment-react-post span {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 20px;
+  font-weight: 600;
+  color: #707277;
+  padding-right: 10px;
+  text-align: center;
+}
+
+@keyframes ripple {
+  0% {
     transform: scale(0);
-    filter: blur(10px);
+    opacity: 1;
   }
 
-  .comment-react-post button svg {
-    position: relative;
-    z-index: 9;
+  100% {
+    transform: scale(1.2);
+    opacity: 0.1;
+  }
+}
+
+@keyframes ripple2 {
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
 
-  .comment-react-post button:hover:after {
-    animation: ripple 0.75s ease-in-out infinite;
+  50% {
+    transform: scale(1.8);
+    opacity: 1;
   }
 
-  .comment-react-post button:hover svg {
-    animation: ripple2 0.9s ease-in-out infinite;
-    fill: #f5356e;
+  100% {
+    transform: scale(0.9);
+    opacity: 1;
   }
-
-  .comment-react-post button:hover svg path {
-    stroke: #2d88ff;
-    fill: #57a0ff;
-  }
-
-  .comment-react-post hr {
-    width: 80%;
-    height: 1px;
-    background-color: #dfe1e6;
-    margin: auto;
-    border: 0;
-  }
-
-  .comment-react-post span {
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    font-size: 20px;
-    font-weight: 600;
-    color: #707277;
-    padding-right: 10px;
-    text-align: center;
-  }
-
-  @keyframes ripple {
-    0% {
-      transform: scale(0);
-      opacity: 1;
-    }
-
-    100% {
-      transform: scale(1.2);
-      opacity: 0.1;
-    }
-  }
-
-  @keyframes ripple2 {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    50% {
-      transform: scale(1.8);
-      opacity: 1;
-    }
-
-    100% {
-        transform: scale(0.9);
-        opacity: 1;
-      }
-  }
+}
