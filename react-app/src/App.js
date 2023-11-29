@@ -36,7 +36,7 @@ export const refList = [];
   return isLoaded && (
     <>
       <Navigation isLoaded={isLoaded} />
-      {currentUser ? auth?.currentUser?.emailVerified ? null : <VerifyEmail /> : null}
+      {/* {currentUser ? auth?.currentUser?.emailVerified ? null : <VerifyEmail /> : null} */}
       {isLoaded && (
         <Switch>
           <Route exact path='/'>

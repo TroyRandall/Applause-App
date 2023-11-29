@@ -1,7 +1,7 @@
-const GET_ALL_LIKES_POSTLIKES = "likes/GET_ALL_LIKES";
+const GET_ALL_LIKES_POSTLIKES = "likes/GET_ALL_LIKES_POSTLIKES";
 const GET_ALL_LIKES_POST = 'likes/GET_ALL_LIKES_POST'
-const CREATE_LIKE_POST = "likes/CREATE_LIKE";
-const DELETE_LIKE_POST = "likes/DELETE_LIKE";
+const CREATE_LIKE_POST = "likes/CREATE_LIKE_POST";
+const DELETE_LIKE_POST = "likes/DELETE_LIKE_POST";
 
 const getAllLikes = (data) => ({
   type: GET_ALL_LIKES_POSTLIKES,
@@ -32,26 +32,7 @@ const deleteLikePost = (id, postId) => ({
   },
 });
 
-export const getAllLikesThunk = () => async (dispatch) => {
-  const response = await fetch(`/api/likes/`);
 
-  if (response.ok) {
-    let newData = {};
-    let newLike = {};
-    const data = await response.json();
-    data.forEach((like) => {
-      newLike = {};
-      newLike[like?.id] = like;
-      if (newData[like?.postId]) {
-        newData[like?.postId] = { ...newData[like?.postId],like };
-      } else {
-        newData[like?.postId] = { ...like };
-      }
-    });
-    await dispatch(getAllLikes(newData));
-    return null;
-  }
-};
 
 export const getAllLikesForPost = (id) => async (dispatch) => {
   const response = await fetch(`/api/likes/post/${id}`);
