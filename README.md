@@ -1,4 +1,5 @@
-# Welcome to Applause👏🙌
+# Welcome to Applause👏🙌 <img align='right' src='https://firebasestorage.googleapis.com/v0/b/applause-ce1e3.appspot.com/o/Untitled%20video%20-%20Made%20with%20Clipchamp%20(2).gif?alt=media&token=3044ddf1-acae-4406-8d9a-111231a4eb28' />
+'
 
 Inspired by the synergy of social media giants like Facebook, Instagram, and Twitter, Applause emerges as an independent masterpiece, merging social interaction with seamless design. Users are empowered to craft their digital personas through customizable profiles and photo galleries, while dynamic real-time data flow ensures a seamless and engaging experience. This expansive solution is crafted using a fusion of Javascript and Python, with React/Redux providing a thoughtful user interface and Flask managing the robust backend.
 
