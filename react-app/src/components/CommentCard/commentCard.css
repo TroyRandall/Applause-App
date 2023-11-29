@@ -151,10 +151,6 @@
     z-index: 9;
   }
 
-  .comment-react button:hover:after {
-    animation: ripple 0.6s ease-in-out forwards;
-  }
-
   .comment-react button:hover svg {
     fill: #f5356e;
   }
