@@ -100,7 +100,6 @@ function ProfilePage() {
     imageToggle,
     musicToggle,
     currentUser,
-    description,
     errors,
   ]);
 
